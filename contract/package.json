@@ -9,7 +9,7 @@
     "deploy:mainnet": "node scripts/deploy.mjs mainnet"
   },
   "dependencies": {
-    "@algorandfoundation/tealscript": "^0.107.2",
+    "@algorandfoundation/tealscript": "0.106.2",
     "algosdk": "^3.0.0",
     "dotenv": "^16.4.5"
   }
