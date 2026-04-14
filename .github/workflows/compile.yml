@@ -19,7 +19,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '24'
+          node-version: '20'
           cache: 'npm'
           cache-dependency-path: contract/package-lock.json
 
@@ -28,14 +28,18 @@ jobs:
 
       - name: Compile TEALScript
         run: |
-          mkdir -p artifacts
           cd contract
           npx @algorandfoundation/tealscript contract/LuckyVoiRoll.ts artifacts/
-          ls -la artifacts/
-          cp artifacts/* ../../artifacts/
+          echo "--- contract/ contents ---"
+          find . -name "*.teal" -o -name "*.json" 2>/dev/null | head -20
+          echo "--- repo root contents ---"
+          find .. -maxdepth 3 -name "*.teal" -o -name "*.json" 2>/dev/null | grep -v node_modules | head -20
 
-      - name: Verify artifacts
+      - name: Copy and verify artifacts
         run: |
+          mkdir -p artifacts
+          find contract -name "*.teal" -exec cp {} artifacts/ \;
+          find contract -name "*.arc32.json" -exec cp {} artifacts/ \;
           ls -la artifacts/
           test -f artifacts/LuckyVoiRoll.approval.teal || (echo "ERROR: approval.teal missing" && exit 1)
           test -f artifacts/LuckyVoiRoll.clear.teal    || (echo "ERROR: clear.teal missing"    && exit 1)
