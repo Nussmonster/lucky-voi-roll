@@ -28,27 +28,21 @@ jobs:
 
       - name: Compile TEALScript
         run: |
-          cd contract
-          npx @algorandfoundation/tealscript contract/LuckyVoiRoll.ts artifacts/
-          echo "--- contract/ contents ---"
-          find . -name "*.teal" -o -name "*.json" 2>/dev/null | head -20
-          echo "--- repo root contents ---"
-          find .. -maxdepth 3 -name "*.teal" -o -name "*.json" 2>/dev/null | grep -v node_modules | head -20
-
-      - name: Copy and verify artifacts
-        run: |
           mkdir -p artifacts
-          find contract -name "*.teal" -exec cp {} artifacts/ \;
-          find contract -name "*.arc32.json" -exec cp {} artifacts/ \;
-          ls -la artifacts/
+          cd contract
+          npx @algorandfoundation/tealscript LuckyVoiRoll.ts ../artifacts/
+          ls -la ../artifacts/
+
+      - name: Verify artifacts
+        run: |
           test -f artifacts/LuckyVoiRoll.approval.teal || (echo "ERROR: approval.teal missing" && exit 1)
-          test -f artifacts/LuckyVoiRoll.clear.teal    || (echo "ERROR: clear.teal missing"    && exit 1)
-          test -f artifacts/LuckyVoiRoll.arc32.json    || (echo "ERROR: arc32.json missing"    && exit 1)
+          test -f artifacts/LuckyVoiRoll.clear.teal    || (echo "ERROR: clear.teal missing" && exit 1)
+          test -f artifacts/LuckyVoiRoll.arc32.json    || (echo "ERROR: arc32.json missing" && exit 1)
           echo "All 3 artifacts present."
 
       - name: Commit artifacts
         run: |
-          git config user.name  "github-actions[bot]"
+          git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add -f artifacts/
           git diff --staged --quiet && echo "No changes" || git commit -m "chore: compile artifacts [skip ci]"
