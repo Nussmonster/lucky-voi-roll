@@ -27,7 +27,12 @@ jobs:
         run: cd contract && npm ci
 
       - name: Compile TEALScript
-        run: cd contract && npx @algorandfoundation/tealscript contract/LuckyVoiRoll.ts ../artifacts/
+        run: |
+          mkdir -p artifacts
+          cd contract
+          npx @algorandfoundation/tealscript contract/LuckyVoiRoll.ts artifacts/
+          ls artifacts/ || true
+          cp artifacts/* ../artifacts/ 2>/dev/null || true
 
       - name: Verify artifacts
         run: |
