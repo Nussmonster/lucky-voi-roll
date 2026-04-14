@@ -3,3 +3,5 @@ node_modules/
 artifacts/
 contract/node_modules/
 *.teal
+!artifacts/
+!artifacts/
