@@ -31,8 +31,8 @@ jobs:
           mkdir -p artifacts
           cd contract
           npx @algorandfoundation/tealscript contract/LuckyVoiRoll.ts artifacts/
-          ls artifacts/ || true
-          cp artifacts/* ../artifacts/ 2>/dev/null || true
+          ls -la artifacts/
+          cp artifacts/* ../../artifacts/
 
       - name: Verify artifacts
         run: |
