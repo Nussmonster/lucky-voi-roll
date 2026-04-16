@@ -4,9 +4,9 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "compile": "tealscript contract/LuckyVoiRoll.ts artifacts/",
-    "deploy:testnet": "node scripts/deploy.mjs testnet",
-    "deploy:mainnet": "node scripts/deploy.mjs mainnet"
+    "compile": "tealscript LuckyVoiRoll.ts ../artifacts/",
+    "deploy:testnet": "node ../scripts/deploy.mjs testnet",
+    "deploy:mainnet": "node ../scripts/deploy.mjs mainnet"
   },
   "dependencies": {
     "@algorandfoundation/tealscript": "0.106.2",
