@@ -5,8 +5,8 @@
   "type": "module",
   "scripts": {
     "compile": "tealscript --skip-algod LuckyVoiRoll.ts ../artifacts/",
-    "deploy:testnet": "node ../scripts/deploy.mjs testnet",
-    "deploy:mainnet": "node ../scripts/deploy.mjs mainnet"
+    "deploy:testnet": "node deploy.mjs testnet",
+    "deploy:mainnet": "node deploy.mjs mainnet"
   },
   "dependencies": {
     "@algorandfoundation/tealscript": "0.106.2",
