@@ -1,6 +1,10 @@
-// scripts/deploy.mjs  (v1.1 — post-audit patch)
-// H-02 fix: single funding path, no double-fund, no spurious createApplication call.
-// M-01 fix: reads schema from ARC-32 artifact instead of hardcoding slot counts.
+// scripts/deploy.mjs  (v1.2 — post-audit patch)
+// C-01/H-03 fix: contract now starts paused; script calls unpause() after fundHouse().
+// M-01 fix: corrected default global-int fallback from 9 → 8.
+// M-02 fix: validate HOUSE_SEED_VOI range before use.
+// M-03 fix: confirm group transactions using the last tx ID.
+// L-01 fix: wrap mnemonicToSecretKey in try/catch for clear error messages.
+// Local state schema updated: 5 local ints + 1 local byte slice (commit-reveal state).
 
 import algosdk from 'algosdk';
 import fs from 'fs';
@@ -25,44 +29,68 @@ const NETWORKS = {
   },
 };
 
-const HOUSE_SEED_MICRO_VOI = BigInt(
-  process.env.HOUSE_SEED_VOI
-    ? Math.round(Number(process.env.HOUSE_SEED_VOI) * 1_000_000)
-    : 100_000_000   // 100 VOI default
-);
+// M-02: validate HOUSE_SEED_VOI before converting to BigInt
+const MIN_SEED_VOI = 10;
+const MAX_SEED_VOI = 10_000;
+
+const rawSeedVoi = process.env.HOUSE_SEED_VOI ? Number(process.env.HOUSE_SEED_VOI) : 100;
+if (isNaN(rawSeedVoi) || rawSeedVoi < MIN_SEED_VOI || rawSeedVoi > MAX_SEED_VOI) {
+  console.error(
+    `Invalid HOUSE_SEED_VOI: "${process.env.HOUSE_SEED_VOI}". ` +
+    `Must be a number between ${MIN_SEED_VOI} and ${MAX_SEED_VOI} VOI.`,
+  );
+  process.exit(1);
+}
+const HOUSE_SEED_MICRO_VOI = BigInt(Math.round(rawSeedVoi * 1_000_000));
 
 async function main() {
   const netArg = process.argv[2] ?? 'testnet';
   const net    = NETWORKS[netArg];
   if (!net) { console.error(`Unknown network: ${netArg}`); process.exit(1); }
 
+  // L-01: clear error on bad mnemonic
   const mnemonic = process.env.DEPLOYER_MNEMONIC;
   if (!mnemonic) { console.error('Set DEPLOYER_MNEMONIC in .env'); process.exit(1); }
+  let account;
+  try {
+    account = algosdk.mnemonicToSecretKey(mnemonic);
+  } catch (err) {
+    console.error('Invalid DEPLOYER_MNEMONIC:', err.message);
+    process.exit(1);
+  }
 
-  const account = algosdk.mnemonicToSecretKey(mnemonic);
-  const algod   = new algosdk.Algodv2('', net.algodUrl, net.algodPort);
+  const algod = new algosdk.Algodv2('', net.algodUrl, net.algodPort);
 
   // ── Load TEAL ────────────────────────────────────────────────────
-  const artifactsDir  = path.join(__dirname, '..', 'artifacts');
-  const approvalPath  = path.join(artifactsDir, 'LuckyVoiRoll.approval.teal');
-  const clearPath     = path.join(artifactsDir, 'LuckyVoiRoll.clear.teal');
-  const arc32Path     = path.join(artifactsDir, 'LuckyVoiRoll.arc32.json');
+  const artifactsDir = path.join(__dirname, '..', 'artifacts');
+  const approvalPath = path.join(artifactsDir, 'LuckyVoiRoll.approval.teal');
+  const clearPath    = path.join(artifactsDir, 'LuckyVoiRoll.clear.teal');
+  const arc32Path    = path.join(artifactsDir, 'LuckyVoiRoll.arc32.json');
 
   if (!fs.existsSync(approvalPath)) {
-    console.error('TEAL not found. Run: npm run compile'); process.exit(1);
+    console.error('TEAL not found. Run: npm run compile');
+    process.exit(1);
   }
 
   const approvalSource = fs.readFileSync(approvalPath, 'utf8');
   const clearSource    = fs.readFileSync(clearPath, 'utf8');
 
-  // M-01: read schema from ARC-32 artifact, not hardcoded values
-  let numGlobalInts = 9, numGlobalByteSlices = 2; // safe defaults (owner + pendingOwner)
+  // M-01: corrected defaults — 8 global ints (was 9), 2 byte slices (ow/po addresses)
+  // New commit-reveal local state: 5 local ints (pg pw cr cb ct) + 1 byte slice (ch)
+  let numGlobalInts       = 8;
+  let numGlobalByteSlices = 2;
+  let numLocalInts        = 5;
+  let numLocalByteSlices  = 1;
+
   if (fs.existsSync(arc32Path)) {
     const arc32 = JSON.parse(fs.readFileSync(arc32Path, 'utf8'));
-    const gs    = arc32?.state?.global ?? {};
-    numGlobalInts       = gs.num_uints ?? numGlobalInts;
+    const gs = arc32?.state?.global ?? {};
+    const ls = arc32?.state?.local  ?? {};
+    numGlobalInts       = gs.num_uints       ?? numGlobalInts;
     numGlobalByteSlices = gs.num_byte_slices ?? numGlobalByteSlices;
-    console.log(`Schema from ARC-32: ${numGlobalInts} ints, ${numGlobalByteSlices} byte slices`);
+    numLocalInts        = ls.num_uints       ?? numLocalInts;
+    numLocalByteSlices  = ls.num_byte_slices ?? numLocalByteSlices;
+    console.log(`Schema from ARC-32: global ${numGlobalInts}i/${numGlobalByteSlices}b, local ${numLocalInts}i/${numLocalByteSlices}b`);
   } else {
     console.warn('ARC-32 not found — using default schema counts. Run compile first.');
   }
@@ -81,7 +109,7 @@ async function main() {
     process.exit(1);
   }
 
-  // ── Compile TEAL ──────────────────────────────────────────────────
+  // ── Compile TEAL ─────────────────────────────────────────────────
   const compiled = await Promise.all([
     algod.compile(approvalSource).do(),
     algod.compile(clearSource).do(),
@@ -90,8 +118,7 @@ async function main() {
   const clearProgram    = new Uint8Array(Buffer.from(compiled[1].result, 'base64'));
 
   // ── Create application ────────────────────────────────────────────
-  // H-02 fix: creation transaction initialises state via createApplication()
-  // automatically — no separate init call needed.
+  // Contract starts paused (pa=1). We call unpause() after fundHouse().
   const params    = await algod.getTransactionParams().do();
   const createTxn = algosdk.makeApplicationCreateTxnFromObject({
     sender:              account.addr,
@@ -101,8 +128,8 @@ async function main() {
     clearProgram,
     numGlobalByteSlices,
     numGlobalInts,
-    numLocalByteSlices: 0,
-    numLocalInts:       2,  // pg (playerGames) + pw (playerWon)
+    numLocalByteSlices,
+    numLocalInts,
   });
 
   const { txid } = await algod.sendRawTransaction(createTxn.signTxn(account.sk)).do();
@@ -115,13 +142,13 @@ async function main() {
   // ── Fund the app account ──────────────────────────────────────────
   // AVM minimum balance for this app (approximate):
   //   100_000 base
-  // + numGlobalInts    × 28_500  = ~9 × 28_500 = 256_500
-  // + numGlobalBSlices × 50_000  = ~2 × 50_000 = 100_000
-  // Total ≈ 456_500 µVOI, round up to 600_000 for safety
+  // + 8 global ints    × 28_500 = 228_000
+  // + 2 global bslices × 50_000 = 100_000
+  // Total ≈ 428_000 µVOI; use 600_000 for safety
   const MIN_BALANCE_BUFFER = 600_000n;
   const totalFund = HOUSE_SEED_MICRO_VOI + MIN_BALANCE_BUFFER;
 
-  const p2 = await algod.getTransactionParams().do();
+  const p2      = await algod.getTransactionParams().do();
   const fundTxn = algosdk.makePaymentTxnWithSuggestedParamsFromObject({
     sender:          account.addr,
     receiver:        appAddress,
@@ -133,9 +160,7 @@ async function main() {
   await algosdk.waitForConfirmation(algod, ftxid, 5);
   console.log('✅ App funded:', (Number(totalFund) / 1e6).toFixed(3), 'VOI →', appAddress);
 
-  // ── Call fundHouse() to credit HOUSE_SEED to houseBalance ─────────
-  // H-02 fix: use the fundHouse() method (grouped PayTxn + AppCall)
-  // rather than a separate createApplication() init call.
+  // ── Call fundHouse() to credit HOUSE_SEED to houseBalance ────────
   const p3 = await algod.getTransactionParams().do();
 
   const housePayTxn = algosdk.makePaymentTxnWithSuggestedParamsFromObject({
@@ -146,7 +171,6 @@ async function main() {
     note:            new TextEncoder().encode('LVR house seed'),
   });
 
-  // ABI selector for fundHouse(pay)void
   const fundSelector = algosdk.ABIMethod.fromSignature('fundHouse(pay)void').getSelector();
   const fundCallTxn  = algosdk.makeApplicationCallTxnFromObject({
     sender:          account.addr,
@@ -157,20 +181,46 @@ async function main() {
   });
 
   algosdk.assignGroupID([housePayTxn, fundCallTxn]);
-  const signedGroup = [
+  const signedFundGroup = [
     housePayTxn.signTxn(account.sk),
     fundCallTxn.signTxn(account.sk),
   ];
-  const { txid: htxid } = await algod.sendRawTransaction(signedGroup).do();
-  await algosdk.waitForConfirmation(algod, htxid, 5);
+
+  await algod.sendRawTransaction(signedFundGroup).do();
+  // M-03: confirm using last tx in the group (atomic — confirming any tx confirms all)
+  const lastFundTxid = algosdk.decodeSignedTransaction(signedFundGroup[signedFundGroup.length - 1]).txn.txID();
+  await algosdk.waitForConfirmation(algod, lastFundTxid, 5);
   console.log('✅ House pool seeded:', (Number(HOUSE_SEED_MICRO_VOI) / 1e6), 'VOI');
 
-  // ── Save ──────────────────────────────────────────────────────────
-  const info2 = { network: netArg, appId, appAddress, deployer: account.addr, deployedAt: new Date().toISOString() };
-  fs.mkdirSync(artifactsDir, { recursive: true });
-  fs.writeFileSync(path.join(artifactsDir, `deployment.${netArg}.json`), JSON.stringify(info2, null, 2));
+  // ── H-03: unpause the contract now that it is funded ─────────────
+  const p4 = await algod.getTransactionParams().do();
+  const unpauseSelector = algosdk.ABIMethod.fromSignature('unpause()void').getSelector();
+  const unpauseTxn = algosdk.makeApplicationCallTxnFromObject({
+    sender:          account.addr,
+    appIndex:        appId,
+    onComplete:      algosdk.OnApplicationComplete.NoOpOC,
+    appArgs:         [unpauseSelector],
+    suggestedParams: { ...p4, fee: 1000, flatFee: true },
+  });
+  const { txid: utxid } = await algod.sendRawTransaction(unpauseTxn.signTxn(account.sk)).do();
+  await algosdk.waitForConfirmation(algod, utxid, 5);
+  console.log('✅ Contract unpaused — open for betting');
 
-  console.log('\n─'.repeat(48));
+  // ── Save deployment info ──────────────────────────────────────────
+  const deployInfo = {
+    network:     netArg,
+    appId,
+    appAddress,
+    deployer:    account.addr,
+    deployedAt:  new Date().toISOString(),
+  };
+  fs.mkdirSync(artifactsDir, { recursive: true });
+  fs.writeFileSync(
+    path.join(artifactsDir, `deployment.${netArg}.json`),
+    JSON.stringify(deployInfo, null, 2),
+  );
+
+  console.log('\n' + '─'.repeat(48));
   console.log('🎲 Live on', net.name);
   console.log('   App ID:    ', appId);
   console.log('   App Addr:  ', appAddress);
