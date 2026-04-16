@@ -4,7 +4,7 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "compile": "tealscript LuckyVoiRoll.ts ../artifacts/",
+    "compile": "tealscript --skip-algod LuckyVoiRoll.ts ../artifacts/",
     "deploy:testnet": "node ../scripts/deploy.mjs testnet",
     "deploy:mainnet": "node ../scripts/deploy.mjs mainnet"
   },

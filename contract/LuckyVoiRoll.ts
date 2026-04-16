@@ -25,7 +25,7 @@ export class LuckyVoiRoll extends Contract {
   // ── Local state (5 × uint64 + 1 × bytes) ─────────────────────────
   pg = LocalStateKey<uint64>({ key: 'pg' });     // player game count
   pw = LocalStateKey<uint64>({ key: 'pw' });     // player total winnings
-  ch = LocalStateKey<bytes>({ key: 'ch' });      // commit hash (sha256, 32 bytes)
+  ch = LocalStateKey<StaticArray<byte, 32>>({ key: 'ch' });  // commit hash (sha256)
   cr = LocalStateKey<uint64>({ key: 'cr' });     // commit round (0 = none pending)
   cb = LocalStateKey<uint64>({ key: 'cb' });     // commit bet amount
   ct = LocalStateKey<uint64>({ key: 'ct' });     // commit bet type
@@ -134,7 +134,7 @@ export class LuckyVoiRoll extends Contract {
   // If the player never reveals, the bet is forfeited to the house.
   // Call clearExpiredCommit() to reset local state so a new bet can be placed.
 
-  commit(payment: PayTxn, betType: uint64, commitHash: bytes): void {
+  commit(payment: PayTxn, betType: uint64, commitHash: StaticArray<byte, 32>): void {
     verifyPayTxn(payment, { receiver: this.app.address, sender: this.txn.sender });
     assert(this.pa.value === 0, 'Contract is paused');
     assert(betType === UNDER_7 || betType === SEVEN || betType === OVER_7, 'Invalid bet type');

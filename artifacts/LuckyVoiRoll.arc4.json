@@ -1,0 +1,140 @@
+{
+  "name": "LuckyVoiRoll",
+  "desc": "",
+  "methods": [
+    {
+      "name": "createApplication",
+      "args": [],
+      "returns": {
+        "type": "void"
+      }
+    },
+    {
+      "name": "optIn",
+      "args": [],
+      "returns": {
+        "type": "void"
+      }
+    },
+    {
+      "name": "fundHouse",
+      "args": [
+        {
+          "name": "payment",
+          "type": "pay"
+        }
+      ],
+      "returns": {
+        "type": "void"
+      }
+    },
+    {
+      "name": "withdraw",
+      "args": [
+        {
+          "name": "amount",
+          "type": "uint64"
+        }
+      ],
+      "returns": {
+        "type": "void"
+      }
+    },
+    {
+      "name": "emergencyWithdraw",
+      "args": [],
+      "returns": {
+        "type": "void"
+      }
+    },
+    {
+      "name": "pause",
+      "args": [],
+      "returns": {
+        "type": "void"
+      }
+    },
+    {
+      "name": "unpause",
+      "args": [],
+      "returns": {
+        "type": "void"
+      }
+    },
+    {
+      "name": "setBetLimits",
+      "args": [
+        {
+          "name": "newMin",
+          "type": "uint64"
+        },
+        {
+          "name": "newMax",
+          "type": "uint64"
+        }
+      ],
+      "returns": {
+        "type": "void"
+      }
+    },
+    {
+      "name": "transferOwnership",
+      "args": [
+        {
+          "name": "newOwner",
+          "type": "address"
+        }
+      ],
+      "returns": {
+        "type": "void"
+      }
+    },
+    {
+      "name": "acceptOwnership",
+      "args": [],
+      "returns": {
+        "type": "void"
+      }
+    },
+    {
+      "name": "commit",
+      "args": [
+        {
+          "name": "payment",
+          "type": "pay"
+        },
+        {
+          "name": "betType",
+          "type": "uint64"
+        },
+        {
+          "name": "commitHash",
+          "type": "byte[32]"
+        }
+      ],
+      "returns": {
+        "type": "void"
+      }
+    },
+    {
+      "name": "reveal",
+      "args": [
+        {
+          "name": "secret",
+          "type": "byte[]"
+        }
+      ],
+      "returns": {
+        "type": "void"
+      }
+    },
+    {
+      "name": "clearExpiredCommit",
+      "desc": "Reset an expired (unrevealed) commit so the player can bet again.\nThe forfeited bet stays in hb — this only clears the local commit state.",
+      "args": [],
+      "returns": {
+        "type": "void"
+      }
+    }
+  ]
+}

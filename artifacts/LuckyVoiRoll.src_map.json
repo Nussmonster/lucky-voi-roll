@@ -1,0 +1,2955 @@
+[
+  {
+    "teal": 1,
+    "source": "LuckyVoiRoll.ts:12"
+  },
+  {
+    "teal": 2,
+    "source": "LuckyVoiRoll.ts:12"
+  },
+  {
+    "teal": 3,
+    "source": "LuckyVoiRoll.ts:12"
+  },
+  {
+    "teal": 15,
+    "source": "LuckyVoiRoll.ts:12"
+  },
+  {
+    "teal": 16,
+    "source": "LuckyVoiRoll.ts:12"
+  },
+  {
+    "teal": 17,
+    "source": "LuckyVoiRoll.ts:12"
+  },
+  {
+    "teal": 18,
+    "source": "LuckyVoiRoll.ts:12"
+  },
+  {
+    "teal": 19,
+    "source": "LuckyVoiRoll.ts:12"
+  },
+  {
+    "teal": 20,
+    "source": "LuckyVoiRoll.ts:12"
+  },
+  {
+    "teal": 21,
+    "source": "LuckyVoiRoll.ts:12"
+  },
+  {
+    "teal": 25,
+    "source": "LuckyVoiRoll.ts:12",
+    "errorMessage": "The requested action is not implemented in this contract. Are you using the correct OnComplete? Did you set your app ID?"
+  },
+  {
+    "teal": 30,
+    "source": "LuckyVoiRoll.ts:35"
+  },
+  {
+    "teal": 31,
+    "source": "LuckyVoiRoll.ts:35"
+  },
+  {
+    "teal": 32,
+    "source": "LuckyVoiRoll.ts:35"
+  },
+  {
+    "teal": 36,
+    "source": "LuckyVoiRoll.ts:35"
+  },
+  {
+    "teal": 40,
+    "source": "LuckyVoiRoll.ts:36"
+  },
+  {
+    "teal": 41,
+    "source": "LuckyVoiRoll.ts:36"
+  },
+  {
+    "teal": 42,
+    "source": "LuckyVoiRoll.ts:36"
+  },
+  {
+    "teal": 46,
+    "source": "LuckyVoiRoll.ts:37"
+  },
+  {
+    "teal": 47,
+    "source": "LuckyVoiRoll.ts:37"
+  },
+  {
+    "teal": 48,
+    "source": "LuckyVoiRoll.ts:37"
+  },
+  {
+    "teal": 52,
+    "source": "LuckyVoiRoll.ts:38"
+  },
+  {
+    "teal": 53,
+    "source": "LuckyVoiRoll.ts:38"
+  },
+  {
+    "teal": 54,
+    "source": "LuckyVoiRoll.ts:38"
+  },
+  {
+    "teal": 58,
+    "source": "LuckyVoiRoll.ts:39"
+  },
+  {
+    "teal": 59,
+    "source": "LuckyVoiRoll.ts:39"
+  },
+  {
+    "teal": 60,
+    "source": "LuckyVoiRoll.ts:39"
+  },
+  {
+    "teal": 64,
+    "source": "LuckyVoiRoll.ts:40"
+  },
+  {
+    "teal": 65,
+    "source": "LuckyVoiRoll.ts:40"
+  },
+  {
+    "teal": 66,
+    "source": "LuckyVoiRoll.ts:40"
+  },
+  {
+    "teal": 70,
+    "source": "LuckyVoiRoll.ts:41"
+  },
+  {
+    "teal": 71,
+    "source": "LuckyVoiRoll.ts:41"
+  },
+  {
+    "teal": 72,
+    "source": "LuckyVoiRoll.ts:41"
+  },
+  {
+    "teal": 76,
+    "source": "LuckyVoiRoll.ts:42"
+  },
+  {
+    "teal": 77,
+    "source": "LuckyVoiRoll.ts:42"
+  },
+  {
+    "teal": 78,
+    "source": "LuckyVoiRoll.ts:42"
+  },
+  {
+    "teal": 82,
+    "source": "LuckyVoiRoll.ts:43"
+  },
+  {
+    "teal": 83,
+    "source": "LuckyVoiRoll.ts:43"
+  },
+  {
+    "teal": 84,
+    "source": "LuckyVoiRoll.ts:43"
+  },
+  {
+    "teal": 88,
+    "source": "LuckyVoiRoll.ts:44"
+  },
+  {
+    "teal": 89,
+    "source": "LuckyVoiRoll.ts:44"
+  },
+  {
+    "teal": 90,
+    "source": "LuckyVoiRoll.ts:44"
+  },
+  {
+    "teal": 94,
+    "source": "LuckyVoiRoll.ts:45"
+  },
+  {
+    "teal": 95,
+    "source": "LuckyVoiRoll.ts:45"
+  },
+  {
+    "teal": 96,
+    "source": "LuckyVoiRoll.ts:45"
+  },
+  {
+    "teal": 97,
+    "source": "LuckyVoiRoll.ts:35"
+  },
+  {
+    "teal": 102,
+    "source": "LuckyVoiRoll.ts:48"
+  },
+  {
+    "teal": 103,
+    "source": "LuckyVoiRoll.ts:48"
+  },
+  {
+    "teal": 104,
+    "source": "LuckyVoiRoll.ts:48"
+  },
+  {
+    "teal": 108,
+    "source": "LuckyVoiRoll.ts:48"
+  },
+  {
+    "teal": 112,
+    "source": "LuckyVoiRoll.ts:49"
+  },
+  {
+    "teal": 113,
+    "source": "LuckyVoiRoll.ts:49"
+  },
+  {
+    "teal": 114,
+    "source": "LuckyVoiRoll.ts:49"
+  },
+  {
+    "teal": 115,
+    "source": "LuckyVoiRoll.ts:49"
+  },
+  {
+    "teal": 119,
+    "source": "LuckyVoiRoll.ts:50"
+  },
+  {
+    "teal": 120,
+    "source": "LuckyVoiRoll.ts:50"
+  },
+  {
+    "teal": 121,
+    "source": "LuckyVoiRoll.ts:50"
+  },
+  {
+    "teal": 122,
+    "source": "LuckyVoiRoll.ts:50"
+  },
+  {
+    "teal": 126,
+    "source": "LuckyVoiRoll.ts:51"
+  },
+  {
+    "teal": 127,
+    "source": "LuckyVoiRoll.ts:51"
+  },
+  {
+    "teal": 128,
+    "source": "LuckyVoiRoll.ts:51"
+  },
+  {
+    "teal": 129,
+    "source": "LuckyVoiRoll.ts:51"
+  },
+  {
+    "teal": 133,
+    "source": "LuckyVoiRoll.ts:52"
+  },
+  {
+    "teal": 134,
+    "source": "LuckyVoiRoll.ts:52"
+  },
+  {
+    "teal": 135,
+    "source": "LuckyVoiRoll.ts:52"
+  },
+  {
+    "teal": 136,
+    "source": "LuckyVoiRoll.ts:52"
+  },
+  {
+    "teal": 140,
+    "source": "LuckyVoiRoll.ts:53"
+  },
+  {
+    "teal": 141,
+    "source": "LuckyVoiRoll.ts:53"
+  },
+  {
+    "teal": 142,
+    "source": "LuckyVoiRoll.ts:53"
+  },
+  {
+    "teal": 143,
+    "source": "LuckyVoiRoll.ts:53"
+  },
+  {
+    "teal": 144,
+    "source": "LuckyVoiRoll.ts:48"
+  },
+  {
+    "teal": 149,
+    "source": "LuckyVoiRoll.ts:58"
+  },
+  {
+    "teal": 150,
+    "source": "LuckyVoiRoll.ts:58"
+  },
+  {
+    "teal": 151,
+    "source": "LuckyVoiRoll.ts:58"
+  },
+  {
+    "teal": 152,
+    "source": "LuckyVoiRoll.ts:58"
+  },
+  {
+    "teal": 153,
+    "source": "LuckyVoiRoll.ts:58"
+  },
+  {
+    "teal": 154,
+    "source": "LuckyVoiRoll.ts:58"
+  },
+  {
+    "teal": 155,
+    "source": "LuckyVoiRoll.ts:58"
+  },
+  {
+    "teal": 158,
+    "source": "LuckyVoiRoll.ts:58",
+    "errorMessage": "argument 0 (payment) for fundHouse must be a pay transaction"
+  },
+  {
+    "teal": 161,
+    "source": "LuckyVoiRoll.ts:58"
+  },
+  {
+    "teal": 162,
+    "source": "LuckyVoiRoll.ts:58"
+  },
+  {
+    "teal": 163,
+    "source": "LuckyVoiRoll.ts:58"
+  },
+  {
+    "teal": 167,
+    "source": "LuckyVoiRoll.ts:58"
+  },
+  {
+    "teal": 171,
+    "source": "LuckyVoiRoll.ts:59"
+  },
+  {
+    "teal": 172,
+    "source": "LuckyVoiRoll.ts:59"
+  },
+  {
+    "teal": 173,
+    "source": "LuckyVoiRoll.ts:59"
+  },
+  {
+    "teal": 174,
+    "source": "LuckyVoiRoll.ts:59"
+  },
+  {
+    "teal": 177,
+    "source": "LuckyVoiRoll.ts:59",
+    "errorMessage": "Not owner"
+  },
+  {
+    "teal": 182,
+    "source": "LuckyVoiRoll.ts:60"
+  },
+  {
+    "teal": 183,
+    "source": "LuckyVoiRoll.ts:60"
+  },
+  {
+    "teal": 184,
+    "source": "LuckyVoiRoll.ts:60"
+  },
+  {
+    "teal": 185,
+    "source": "LuckyVoiRoll.ts:60"
+  },
+  {
+    "teal": 188,
+    "source": "LuckyVoiRoll.ts:60",
+    "errorMessage": "transaction verification failed: {\"txn\":\"payment\",\"field\":\"receiver\",\"expected\":\"this.app.address\"}"
+  },
+  {
+    "teal": 191,
+    "source": "LuckyVoiRoll.ts:60"
+  },
+  {
+    "teal": 192,
+    "source": "LuckyVoiRoll.ts:60"
+  },
+  {
+    "teal": 193,
+    "source": "LuckyVoiRoll.ts:60"
+  },
+  {
+    "teal": 194,
+    "source": "LuckyVoiRoll.ts:60"
+  },
+  {
+    "teal": 197,
+    "source": "LuckyVoiRoll.ts:60",
+    "errorMessage": "transaction verification failed: {\"txn\":\"payment\",\"field\":\"sender\",\"expected\":\"this.txn.sender\"}"
+  },
+  {
+    "teal": 201,
+    "source": "LuckyVoiRoll.ts:61"
+  },
+  {
+    "teal": 202,
+    "source": "LuckyVoiRoll.ts:61"
+  },
+  {
+    "teal": 203,
+    "source": "LuckyVoiRoll.ts:61"
+  },
+  {
+    "teal": 204,
+    "source": "LuckyVoiRoll.ts:61"
+  },
+  {
+    "teal": 205,
+    "source": "LuckyVoiRoll.ts:61"
+  },
+  {
+    "teal": 206,
+    "source": "LuckyVoiRoll.ts:61"
+  },
+  {
+    "teal": 207,
+    "source": "LuckyVoiRoll.ts:61"
+  },
+  {
+    "teal": 208,
+    "source": "LuckyVoiRoll.ts:58"
+  },
+  {
+    "teal": 213,
+    "source": "LuckyVoiRoll.ts:64"
+  },
+  {
+    "teal": 214,
+    "source": "LuckyVoiRoll.ts:64"
+  },
+  {
+    "teal": 217,
+    "source": "LuckyVoiRoll.ts:64"
+  },
+  {
+    "teal": 218,
+    "source": "LuckyVoiRoll.ts:64"
+  },
+  {
+    "teal": 219,
+    "source": "LuckyVoiRoll.ts:64"
+  },
+  {
+    "teal": 223,
+    "source": "LuckyVoiRoll.ts:64"
+  },
+  {
+    "teal": 226,
+    "source": "LuckyVoiRoll.ts:64"
+  },
+  {
+    "teal": 230,
+    "source": "LuckyVoiRoll.ts:65"
+  },
+  {
+    "teal": 231,
+    "source": "LuckyVoiRoll.ts:65"
+  },
+  {
+    "teal": 232,
+    "source": "LuckyVoiRoll.ts:65"
+  },
+  {
+    "teal": 233,
+    "source": "LuckyVoiRoll.ts:65"
+  },
+  {
+    "teal": 236,
+    "source": "LuckyVoiRoll.ts:65",
+    "errorMessage": "Not owner"
+  },
+  {
+    "teal": 240,
+    "source": "LuckyVoiRoll.ts:66"
+  },
+  {
+    "teal": 241,
+    "source": "LuckyVoiRoll.ts:66"
+  },
+  {
+    "teal": 242,
+    "source": "LuckyVoiRoll.ts:66"
+  },
+  {
+    "teal": 243,
+    "source": "LuckyVoiRoll.ts:66"
+  },
+  {
+    "teal": 246,
+    "source": "LuckyVoiRoll.ts:66",
+    "errorMessage": "Amount exceeds balance"
+  },
+  {
+    "teal": 250,
+    "source": "LuckyVoiRoll.ts:68"
+  },
+  {
+    "teal": 251,
+    "source": "LuckyVoiRoll.ts:68"
+  },
+  {
+    "teal": 252,
+    "source": "LuckyVoiRoll.ts:68"
+  },
+  {
+    "teal": 253,
+    "source": "LuckyVoiRoll.ts:68"
+  },
+  {
+    "teal": 254,
+    "source": "LuckyVoiRoll.ts:68"
+  },
+  {
+    "teal": 258,
+    "source": "LuckyVoiRoll.ts:69"
+  },
+  {
+    "teal": 259,
+    "source": "LuckyVoiRoll.ts:69"
+  },
+  {
+    "teal": 260,
+    "source": "LuckyVoiRoll.ts:69"
+  },
+  {
+    "teal": 261,
+    "source": "LuckyVoiRoll.ts:69"
+  },
+  {
+    "teal": 262,
+    "source": "LuckyVoiRoll.ts:69"
+  },
+  {
+    "teal": 263,
+    "source": "LuckyVoiRoll.ts:69"
+  },
+  {
+    "teal": 266,
+    "source": "LuckyVoiRoll.ts:69",
+    "errorMessage": "Reserve too low"
+  },
+  {
+    "teal": 270,
+    "source": "LuckyVoiRoll.ts:70"
+  },
+  {
+    "teal": 271,
+    "source": "LuckyVoiRoll.ts:70"
+  },
+  {
+    "teal": 272,
+    "source": "LuckyVoiRoll.ts:70"
+  },
+  {
+    "teal": 273,
+    "source": "LuckyVoiRoll.ts:70"
+  },
+  {
+    "teal": 274,
+    "source": "LuckyVoiRoll.ts:70"
+  },
+  {
+    "teal": 275,
+    "source": "LuckyVoiRoll.ts:70"
+  },
+  {
+    "teal": 279,
+    "source": "LuckyVoiRoll.ts:71"
+  },
+  {
+    "teal": 280,
+    "source": "LuckyVoiRoll.ts:71"
+  },
+  {
+    "teal": 281,
+    "source": "LuckyVoiRoll.ts:71"
+  },
+  {
+    "teal": 285,
+    "source": "LuckyVoiRoll.ts:71"
+  },
+  {
+    "teal": 286,
+    "source": "LuckyVoiRoll.ts:71"
+  },
+  {
+    "teal": 287,
+    "source": "LuckyVoiRoll.ts:71"
+  },
+  {
+    "teal": 291,
+    "source": "LuckyVoiRoll.ts:71"
+  },
+  {
+    "teal": 292,
+    "source": "LuckyVoiRoll.ts:71"
+  },
+  {
+    "teal": 296,
+    "source": "LuckyVoiRoll.ts:71"
+  },
+  {
+    "teal": 297,
+    "source": "LuckyVoiRoll.ts:71"
+  },
+  {
+    "teal": 300,
+    "source": "LuckyVoiRoll.ts:71"
+  },
+  {
+    "teal": 301,
+    "source": "LuckyVoiRoll.ts:71"
+  },
+  {
+    "teal": 304,
+    "source": "LuckyVoiRoll.ts:71"
+  },
+  {
+    "teal": 305,
+    "source": "LuckyVoiRoll.ts:64"
+  },
+  {
+    "teal": 310,
+    "source": "LuckyVoiRoll.ts:74"
+  },
+  {
+    "teal": 311,
+    "source": "LuckyVoiRoll.ts:74"
+  },
+  {
+    "teal": 312,
+    "source": "LuckyVoiRoll.ts:74"
+  },
+  {
+    "teal": 316,
+    "source": "LuckyVoiRoll.ts:74"
+  },
+  {
+    "teal": 319,
+    "source": "LuckyVoiRoll.ts:74"
+  },
+  {
+    "teal": 323,
+    "source": "LuckyVoiRoll.ts:75"
+  },
+  {
+    "teal": 324,
+    "source": "LuckyVoiRoll.ts:75"
+  },
+  {
+    "teal": 325,
+    "source": "LuckyVoiRoll.ts:75"
+  },
+  {
+    "teal": 326,
+    "source": "LuckyVoiRoll.ts:75"
+  },
+  {
+    "teal": 329,
+    "source": "LuckyVoiRoll.ts:75",
+    "errorMessage": "Not owner"
+  },
+  {
+    "teal": 333,
+    "source": "LuckyVoiRoll.ts:76"
+  },
+  {
+    "teal": 334,
+    "source": "LuckyVoiRoll.ts:76"
+  },
+  {
+    "teal": 335,
+    "source": "LuckyVoiRoll.ts:76"
+  },
+  {
+    "teal": 336,
+    "source": "LuckyVoiRoll.ts:76"
+  },
+  {
+    "teal": 339,
+    "source": "LuckyVoiRoll.ts:76",
+    "errorMessage": "Must pause first"
+  },
+  {
+    "teal": 343,
+    "source": "LuckyVoiRoll.ts:77"
+  },
+  {
+    "teal": 344,
+    "source": "LuckyVoiRoll.ts:77"
+  },
+  {
+    "teal": 345,
+    "source": "LuckyVoiRoll.ts:77"
+  },
+  {
+    "teal": 346,
+    "source": "LuckyVoiRoll.ts:77"
+  },
+  {
+    "teal": 349,
+    "source": "LuckyVoiRoll.ts:77",
+    "errorMessage": "Nothing to withdraw"
+  },
+  {
+    "teal": 353,
+    "source": "LuckyVoiRoll.ts:78"
+  },
+  {
+    "teal": 354,
+    "source": "LuckyVoiRoll.ts:78"
+  },
+  {
+    "teal": 355,
+    "source": "LuckyVoiRoll.ts:78"
+  },
+  {
+    "teal": 359,
+    "source": "LuckyVoiRoll.ts:79"
+  },
+  {
+    "teal": 360,
+    "source": "LuckyVoiRoll.ts:79"
+  },
+  {
+    "teal": 361,
+    "source": "LuckyVoiRoll.ts:79"
+  },
+  {
+    "teal": 365,
+    "source": "LuckyVoiRoll.ts:80"
+  },
+  {
+    "teal": 366,
+    "source": "LuckyVoiRoll.ts:80"
+  },
+  {
+    "teal": 367,
+    "source": "LuckyVoiRoll.ts:80"
+  },
+  {
+    "teal": 371,
+    "source": "LuckyVoiRoll.ts:80"
+  },
+  {
+    "teal": 372,
+    "source": "LuckyVoiRoll.ts:80"
+  },
+  {
+    "teal": 373,
+    "source": "LuckyVoiRoll.ts:80"
+  },
+  {
+    "teal": 377,
+    "source": "LuckyVoiRoll.ts:80"
+  },
+  {
+    "teal": 378,
+    "source": "LuckyVoiRoll.ts:80"
+  },
+  {
+    "teal": 382,
+    "source": "LuckyVoiRoll.ts:80"
+  },
+  {
+    "teal": 383,
+    "source": "LuckyVoiRoll.ts:80"
+  },
+  {
+    "teal": 386,
+    "source": "LuckyVoiRoll.ts:80"
+  },
+  {
+    "teal": 387,
+    "source": "LuckyVoiRoll.ts:80"
+  },
+  {
+    "teal": 390,
+    "source": "LuckyVoiRoll.ts:80"
+  },
+  {
+    "teal": 391,
+    "source": "LuckyVoiRoll.ts:74"
+  },
+  {
+    "teal": 396,
+    "source": "LuckyVoiRoll.ts:83"
+  },
+  {
+    "teal": 397,
+    "source": "LuckyVoiRoll.ts:83"
+  },
+  {
+    "teal": 398,
+    "source": "LuckyVoiRoll.ts:83"
+  },
+  {
+    "teal": 402,
+    "source": "LuckyVoiRoll.ts:83"
+  },
+  {
+    "teal": 406,
+    "source": "LuckyVoiRoll.ts:84"
+  },
+  {
+    "teal": 407,
+    "source": "LuckyVoiRoll.ts:84"
+  },
+  {
+    "teal": 408,
+    "source": "LuckyVoiRoll.ts:84"
+  },
+  {
+    "teal": 409,
+    "source": "LuckyVoiRoll.ts:84"
+  },
+  {
+    "teal": 412,
+    "source": "LuckyVoiRoll.ts:84",
+    "errorMessage": "Not owner"
+  },
+  {
+    "teal": 416,
+    "source": "LuckyVoiRoll.ts:85"
+  },
+  {
+    "teal": 417,
+    "source": "LuckyVoiRoll.ts:85"
+  },
+  {
+    "teal": 418,
+    "source": "LuckyVoiRoll.ts:85"
+  },
+  {
+    "teal": 422,
+    "source": "LuckyVoiRoll.ts:86"
+  },
+  {
+    "teal": 423,
+    "source": "LuckyVoiRoll.ts:86"
+  },
+  {
+    "teal": 424,
+    "source": "LuckyVoiRoll.ts:83"
+  },
+  {
+    "teal": 429,
+    "source": "LuckyVoiRoll.ts:89"
+  },
+  {
+    "teal": 430,
+    "source": "LuckyVoiRoll.ts:89"
+  },
+  {
+    "teal": 431,
+    "source": "LuckyVoiRoll.ts:89"
+  },
+  {
+    "teal": 435,
+    "source": "LuckyVoiRoll.ts:89"
+  },
+  {
+    "teal": 439,
+    "source": "LuckyVoiRoll.ts:90"
+  },
+  {
+    "teal": 440,
+    "source": "LuckyVoiRoll.ts:90"
+  },
+  {
+    "teal": 441,
+    "source": "LuckyVoiRoll.ts:90"
+  },
+  {
+    "teal": 442,
+    "source": "LuckyVoiRoll.ts:90"
+  },
+  {
+    "teal": 445,
+    "source": "LuckyVoiRoll.ts:90",
+    "errorMessage": "Not owner"
+  },
+  {
+    "teal": 449,
+    "source": "LuckyVoiRoll.ts:91"
+  },
+  {
+    "teal": 450,
+    "source": "LuckyVoiRoll.ts:91"
+  },
+  {
+    "teal": 451,
+    "source": "LuckyVoiRoll.ts:91"
+  },
+  {
+    "teal": 455,
+    "source": "LuckyVoiRoll.ts:92"
+  },
+  {
+    "teal": 456,
+    "source": "LuckyVoiRoll.ts:92"
+  },
+  {
+    "teal": 457,
+    "source": "LuckyVoiRoll.ts:89"
+  },
+  {
+    "teal": 462,
+    "source": "LuckyVoiRoll.ts:95"
+  },
+  {
+    "teal": 463,
+    "source": "LuckyVoiRoll.ts:95"
+  },
+  {
+    "teal": 466,
+    "source": "LuckyVoiRoll.ts:95"
+  },
+  {
+    "teal": 467,
+    "source": "LuckyVoiRoll.ts:95"
+  },
+  {
+    "teal": 470,
+    "source": "LuckyVoiRoll.ts:95"
+  },
+  {
+    "teal": 471,
+    "source": "LuckyVoiRoll.ts:95"
+  },
+  {
+    "teal": 472,
+    "source": "LuckyVoiRoll.ts:95"
+  },
+  {
+    "teal": 476,
+    "source": "LuckyVoiRoll.ts:95"
+  },
+  {
+    "teal": 480,
+    "source": "LuckyVoiRoll.ts:96"
+  },
+  {
+    "teal": 481,
+    "source": "LuckyVoiRoll.ts:96"
+  },
+  {
+    "teal": 482,
+    "source": "LuckyVoiRoll.ts:96"
+  },
+  {
+    "teal": 483,
+    "source": "LuckyVoiRoll.ts:96"
+  },
+  {
+    "teal": 486,
+    "source": "LuckyVoiRoll.ts:96",
+    "errorMessage": "Not owner"
+  },
+  {
+    "teal": 490,
+    "source": "LuckyVoiRoll.ts:97"
+  },
+  {
+    "teal": 491,
+    "source": "LuckyVoiRoll.ts:97"
+  },
+  {
+    "teal": 492,
+    "source": "LuckyVoiRoll.ts:97"
+  },
+  {
+    "teal": 493,
+    "source": "LuckyVoiRoll.ts:97"
+  },
+  {
+    "teal": 494,
+    "source": "LuckyVoiRoll.ts:97"
+  },
+  {
+    "teal": 495,
+    "source": "LuckyVoiRoll.ts:97"
+  },
+  {
+    "teal": 496,
+    "source": "LuckyVoiRoll.ts:97"
+  },
+  {
+    "teal": 497,
+    "source": "LuckyVoiRoll.ts:97"
+  },
+  {
+    "teal": 498,
+    "source": "LuckyVoiRoll.ts:97"
+  },
+  {
+    "teal": 502,
+    "source": "LuckyVoiRoll.ts:97",
+    "errorMessage": "Invalid limits"
+  },
+  {
+    "teal": 506,
+    "source": "LuckyVoiRoll.ts:99"
+  },
+  {
+    "teal": 507,
+    "source": "LuckyVoiRoll.ts:10"
+  },
+  {
+    "teal": 508,
+    "source": "LuckyVoiRoll.ts:99"
+  },
+  {
+    "teal": 511,
+    "source": "LuckyVoiRoll.ts:99",
+    "errorMessage": "newMax exceeds hard cap"
+  },
+  {
+    "teal": 515,
+    "source": "LuckyVoiRoll.ts:100"
+  },
+  {
+    "teal": 516,
+    "source": "LuckyVoiRoll.ts:100"
+  },
+  {
+    "teal": 517,
+    "source": "LuckyVoiRoll.ts:100"
+  },
+  {
+    "teal": 518,
+    "source": "LuckyVoiRoll.ts:100"
+  },
+  {
+    "teal": 519,
+    "source": "LuckyVoiRoll.ts:100"
+  },
+  {
+    "teal": 520,
+    "source": "LuckyVoiRoll.ts:100"
+  },
+  {
+    "teal": 523,
+    "source": "LuckyVoiRoll.ts:100",
+    "errorMessage": "maxBet reserve would exceed house pool"
+  },
+  {
+    "teal": 527,
+    "source": "LuckyVoiRoll.ts:101"
+  },
+  {
+    "teal": 528,
+    "source": "LuckyVoiRoll.ts:101"
+  },
+  {
+    "teal": 529,
+    "source": "LuckyVoiRoll.ts:101"
+  },
+  {
+    "teal": 533,
+    "source": "LuckyVoiRoll.ts:102"
+  },
+  {
+    "teal": 534,
+    "source": "LuckyVoiRoll.ts:102"
+  },
+  {
+    "teal": 535,
+    "source": "LuckyVoiRoll.ts:102"
+  },
+  {
+    "teal": 536,
+    "source": "LuckyVoiRoll.ts:95"
+  },
+  {
+    "teal": 541,
+    "source": "LuckyVoiRoll.ts:107"
+  },
+  {
+    "teal": 542,
+    "source": "LuckyVoiRoll.ts:107"
+  },
+  {
+    "teal": 543,
+    "source": "LuckyVoiRoll.ts:107"
+  },
+  {
+    "teal": 544,
+    "source": "LuckyVoiRoll.ts:107"
+  },
+  {
+    "teal": 545,
+    "source": "LuckyVoiRoll.ts:107"
+  },
+  {
+    "teal": 548,
+    "source": "LuckyVoiRoll.ts:107",
+    "errorMessage": "argument 0 (newOwner) for transferOwnership must be a address"
+  },
+  {
+    "teal": 551,
+    "source": "LuckyVoiRoll.ts:107"
+  },
+  {
+    "teal": 552,
+    "source": "LuckyVoiRoll.ts:107"
+  },
+  {
+    "teal": 553,
+    "source": "LuckyVoiRoll.ts:107"
+  },
+  {
+    "teal": 557,
+    "source": "LuckyVoiRoll.ts:107"
+  },
+  {
+    "teal": 561,
+    "source": "LuckyVoiRoll.ts:108"
+  },
+  {
+    "teal": 562,
+    "source": "LuckyVoiRoll.ts:108"
+  },
+  {
+    "teal": 563,
+    "source": "LuckyVoiRoll.ts:108"
+  },
+  {
+    "teal": 564,
+    "source": "LuckyVoiRoll.ts:108"
+  },
+  {
+    "teal": 567,
+    "source": "LuckyVoiRoll.ts:108",
+    "errorMessage": "Not owner"
+  },
+  {
+    "teal": 571,
+    "source": "LuckyVoiRoll.ts:109"
+  },
+  {
+    "teal": 572,
+    "source": "LuckyVoiRoll.ts:109"
+  },
+  {
+    "teal": 573,
+    "source": "LuckyVoiRoll.ts:109"
+  },
+  {
+    "teal": 576,
+    "source": "LuckyVoiRoll.ts:109",
+    "errorMessage": "Zero address"
+  },
+  {
+    "teal": 580,
+    "source": "LuckyVoiRoll.ts:110"
+  },
+  {
+    "teal": 581,
+    "source": "LuckyVoiRoll.ts:110"
+  },
+  {
+    "teal": 582,
+    "source": "LuckyVoiRoll.ts:110"
+  },
+  {
+    "teal": 583,
+    "source": "LuckyVoiRoll.ts:107"
+  },
+  {
+    "teal": 588,
+    "source": "LuckyVoiRoll.ts:113"
+  },
+  {
+    "teal": 589,
+    "source": "LuckyVoiRoll.ts:113"
+  },
+  {
+    "teal": 590,
+    "source": "LuckyVoiRoll.ts:113"
+  },
+  {
+    "teal": 594,
+    "source": "LuckyVoiRoll.ts:113"
+  },
+  {
+    "teal": 598,
+    "source": "LuckyVoiRoll.ts:114"
+  },
+  {
+    "teal": 599,
+    "source": "LuckyVoiRoll.ts:114"
+  },
+  {
+    "teal": 600,
+    "source": "LuckyVoiRoll.ts:114"
+  },
+  {
+    "teal": 601,
+    "source": "LuckyVoiRoll.ts:114"
+  },
+  {
+    "teal": 604,
+    "source": "LuckyVoiRoll.ts:114",
+    "errorMessage": "No pending transfer"
+  },
+  {
+    "teal": 608,
+    "source": "LuckyVoiRoll.ts:115"
+  },
+  {
+    "teal": 609,
+    "source": "LuckyVoiRoll.ts:115"
+  },
+  {
+    "teal": 610,
+    "source": "LuckyVoiRoll.ts:115"
+  },
+  {
+    "teal": 611,
+    "source": "LuckyVoiRoll.ts:115"
+  },
+  {
+    "teal": 614,
+    "source": "LuckyVoiRoll.ts:115",
+    "errorMessage": "Not pending owner"
+  },
+  {
+    "teal": 618,
+    "source": "LuckyVoiRoll.ts:116"
+  },
+  {
+    "teal": 619,
+    "source": "LuckyVoiRoll.ts:116"
+  },
+  {
+    "teal": 620,
+    "source": "LuckyVoiRoll.ts:116"
+  },
+  {
+    "teal": 624,
+    "source": "LuckyVoiRoll.ts:117"
+  },
+  {
+    "teal": 625,
+    "source": "LuckyVoiRoll.ts:117"
+  },
+  {
+    "teal": 626,
+    "source": "LuckyVoiRoll.ts:117"
+  },
+  {
+    "teal": 627,
+    "source": "LuckyVoiRoll.ts:113"
+  },
+  {
+    "teal": 632,
+    "source": "LuckyVoiRoll.ts:137"
+  },
+  {
+    "teal": 633,
+    "source": "LuckyVoiRoll.ts:137"
+  },
+  {
+    "teal": 634,
+    "source": "LuckyVoiRoll.ts:137"
+  },
+  {
+    "teal": 635,
+    "source": "LuckyVoiRoll.ts:137"
+  },
+  {
+    "teal": 636,
+    "source": "LuckyVoiRoll.ts:137"
+  },
+  {
+    "teal": 639,
+    "source": "LuckyVoiRoll.ts:137",
+    "errorMessage": "argument 0 (commitHash) for commit must be a byte[32]"
+  },
+  {
+    "teal": 642,
+    "source": "LuckyVoiRoll.ts:137"
+  },
+  {
+    "teal": 643,
+    "source": "LuckyVoiRoll.ts:137"
+  },
+  {
+    "teal": 646,
+    "source": "LuckyVoiRoll.ts:137"
+  },
+  {
+    "teal": 647,
+    "source": "LuckyVoiRoll.ts:137"
+  },
+  {
+    "teal": 648,
+    "source": "LuckyVoiRoll.ts:137"
+  },
+  {
+    "teal": 649,
+    "source": "LuckyVoiRoll.ts:137"
+  },
+  {
+    "teal": 650,
+    "source": "LuckyVoiRoll.ts:137"
+  },
+  {
+    "teal": 651,
+    "source": "LuckyVoiRoll.ts:137"
+  },
+  {
+    "teal": 652,
+    "source": "LuckyVoiRoll.ts:137"
+  },
+  {
+    "teal": 655,
+    "source": "LuckyVoiRoll.ts:137",
+    "errorMessage": "argument 2 (payment) for commit must be a pay transaction"
+  },
+  {
+    "teal": 658,
+    "source": "LuckyVoiRoll.ts:137"
+  },
+  {
+    "teal": 659,
+    "source": "LuckyVoiRoll.ts:137"
+  },
+  {
+    "teal": 660,
+    "source": "LuckyVoiRoll.ts:137"
+  },
+  {
+    "teal": 664,
+    "source": "LuckyVoiRoll.ts:137"
+  },
+  {
+    "teal": 667,
+    "source": "LuckyVoiRoll.ts:137"
+  },
+  {
+    "teal": 668,
+    "source": "LuckyVoiRoll.ts:137"
+  },
+  {
+    "teal": 673,
+    "source": "LuckyVoiRoll.ts:138"
+  },
+  {
+    "teal": 674,
+    "source": "LuckyVoiRoll.ts:138"
+  },
+  {
+    "teal": 675,
+    "source": "LuckyVoiRoll.ts:138"
+  },
+  {
+    "teal": 676,
+    "source": "LuckyVoiRoll.ts:138"
+  },
+  {
+    "teal": 679,
+    "source": "LuckyVoiRoll.ts:138",
+    "errorMessage": "transaction verification failed: {\"txn\":\"payment\",\"field\":\"receiver\",\"expected\":\"this.app.address\"}"
+  },
+  {
+    "teal": 682,
+    "source": "LuckyVoiRoll.ts:138"
+  },
+  {
+    "teal": 683,
+    "source": "LuckyVoiRoll.ts:138"
+  },
+  {
+    "teal": 684,
+    "source": "LuckyVoiRoll.ts:138"
+  },
+  {
+    "teal": 685,
+    "source": "LuckyVoiRoll.ts:138"
+  },
+  {
+    "teal": 688,
+    "source": "LuckyVoiRoll.ts:138",
+    "errorMessage": "transaction verification failed: {\"txn\":\"payment\",\"field\":\"sender\",\"expected\":\"this.txn.sender\"}"
+  },
+  {
+    "teal": 692,
+    "source": "LuckyVoiRoll.ts:139"
+  },
+  {
+    "teal": 693,
+    "source": "LuckyVoiRoll.ts:139"
+  },
+  {
+    "teal": 694,
+    "source": "LuckyVoiRoll.ts:139"
+  },
+  {
+    "teal": 695,
+    "source": "LuckyVoiRoll.ts:139"
+  },
+  {
+    "teal": 698,
+    "source": "LuckyVoiRoll.ts:139",
+    "errorMessage": "Contract is paused"
+  },
+  {
+    "teal": 702,
+    "source": "LuckyVoiRoll.ts:140"
+  },
+  {
+    "teal": 703,
+    "source": "LuckyVoiRoll.ts:140"
+  },
+  {
+    "teal": 704,
+    "source": "LuckyVoiRoll.ts:140"
+  },
+  {
+    "teal": 705,
+    "source": "LuckyVoiRoll.ts:140"
+  },
+  {
+    "teal": 706,
+    "source": "LuckyVoiRoll.ts:140"
+  },
+  {
+    "teal": 707,
+    "source": "LuckyVoiRoll.ts:140"
+  },
+  {
+    "teal": 708,
+    "source": "LuckyVoiRoll.ts:140"
+  },
+  {
+    "teal": 709,
+    "source": "LuckyVoiRoll.ts:140"
+  },
+  {
+    "teal": 710,
+    "source": "LuckyVoiRoll.ts:140"
+  },
+  {
+    "teal": 713,
+    "source": "LuckyVoiRoll.ts:140"
+  },
+  {
+    "teal": 714,
+    "source": "LuckyVoiRoll.ts:140"
+  },
+  {
+    "teal": 715,
+    "source": "LuckyVoiRoll.ts:140"
+  },
+  {
+    "teal": 716,
+    "source": "LuckyVoiRoll.ts:140"
+  },
+  {
+    "teal": 717,
+    "source": "LuckyVoiRoll.ts:140"
+  },
+  {
+    "teal": 718,
+    "source": "LuckyVoiRoll.ts:140"
+  },
+  {
+    "teal": 722,
+    "source": "LuckyVoiRoll.ts:140",
+    "errorMessage": "Invalid bet type"
+  },
+  {
+    "teal": 726,
+    "source": "LuckyVoiRoll.ts:141"
+  },
+  {
+    "teal": 727,
+    "source": "LuckyVoiRoll.ts:141"
+  },
+  {
+    "teal": 728,
+    "source": "LuckyVoiRoll.ts:141"
+  },
+  {
+    "teal": 729,
+    "source": "LuckyVoiRoll.ts:141"
+  },
+  {
+    "teal": 730,
+    "source": "LuckyVoiRoll.ts:141"
+  },
+  {
+    "teal": 733,
+    "source": "LuckyVoiRoll.ts:141",
+    "errorMessage": "Pending commit — reveal or clear first"
+  },
+  {
+    "teal": 737,
+    "source": "LuckyVoiRoll.ts:143"
+  },
+  {
+    "teal": 738,
+    "source": "LuckyVoiRoll.ts:143"
+  },
+  {
+    "teal": 739,
+    "source": "LuckyVoiRoll.ts:143"
+  },
+  {
+    "teal": 743,
+    "source": "LuckyVoiRoll.ts:144"
+  },
+  {
+    "teal": 744,
+    "source": "LuckyVoiRoll.ts:144"
+  },
+  {
+    "teal": 745,
+    "source": "LuckyVoiRoll.ts:144"
+  },
+  {
+    "teal": 746,
+    "source": "LuckyVoiRoll.ts:144"
+  },
+  {
+    "teal": 749,
+    "source": "LuckyVoiRoll.ts:144",
+    "errorMessage": "Bet too small"
+  },
+  {
+    "teal": 753,
+    "source": "LuckyVoiRoll.ts:145"
+  },
+  {
+    "teal": 754,
+    "source": "LuckyVoiRoll.ts:145"
+  },
+  {
+    "teal": 755,
+    "source": "LuckyVoiRoll.ts:145"
+  },
+  {
+    "teal": 756,
+    "source": "LuckyVoiRoll.ts:145"
+  },
+  {
+    "teal": 759,
+    "source": "LuckyVoiRoll.ts:145",
+    "errorMessage": "Bet too large"
+  },
+  {
+    "teal": 763,
+    "source": "LuckyVoiRoll.ts:147"
+  },
+  {
+    "teal": 764,
+    "source": "LuckyVoiRoll.ts:10"
+  },
+  {
+    "teal": 765,
+    "source": "LuckyVoiRoll.ts:147"
+  },
+  {
+    "teal": 768,
+    "source": "LuckyVoiRoll.ts:147",
+    "errorMessage": "Bet exceeds hard cap"
+  },
+  {
+    "teal": 772,
+    "source": "LuckyVoiRoll.ts:150"
+  },
+  {
+    "teal": 773,
+    "source": "LuckyVoiRoll.ts:150"
+  },
+  {
+    "teal": 774,
+    "source": "LuckyVoiRoll.ts:150"
+  },
+  {
+    "teal": 775,
+    "source": "LuckyVoiRoll.ts:150"
+  },
+  {
+    "teal": 779,
+    "source": "LuckyVoiRoll.ts:151"
+  },
+  {
+    "teal": 780,
+    "source": "LuckyVoiRoll.ts:151"
+  },
+  {
+    "teal": 781,
+    "source": "LuckyVoiRoll.ts:151"
+  },
+  {
+    "teal": 782,
+    "source": "LuckyVoiRoll.ts:7"
+  },
+  {
+    "teal": 783,
+    "source": "LuckyVoiRoll.ts:151"
+  },
+  {
+    "teal": 784,
+    "source": "LuckyVoiRoll.ts:151"
+  },
+  {
+    "teal": 787,
+    "source": "LuckyVoiRoll.ts:151",
+    "errorMessage": "House funds insufficient"
+  },
+  {
+    "teal": 791,
+    "source": "LuckyVoiRoll.ts:153"
+  },
+  {
+    "teal": 792,
+    "source": "LuckyVoiRoll.ts:153"
+  },
+  {
+    "teal": 793,
+    "source": "LuckyVoiRoll.ts:153"
+  },
+  {
+    "teal": 794,
+    "source": "LuckyVoiRoll.ts:153"
+  },
+  {
+    "teal": 795,
+    "source": "LuckyVoiRoll.ts:153"
+  },
+  {
+    "teal": 796,
+    "source": "LuckyVoiRoll.ts:153"
+  },
+  {
+    "teal": 800,
+    "source": "LuckyVoiRoll.ts:154"
+  },
+  {
+    "teal": 801,
+    "source": "LuckyVoiRoll.ts:154"
+  },
+  {
+    "teal": 802,
+    "source": "LuckyVoiRoll.ts:154"
+  },
+  {
+    "teal": 803,
+    "source": "LuckyVoiRoll.ts:154"
+  },
+  {
+    "teal": 804,
+    "source": "LuckyVoiRoll.ts:154"
+  },
+  {
+    "teal": 805,
+    "source": "LuckyVoiRoll.ts:154"
+  },
+  {
+    "teal": 809,
+    "source": "LuckyVoiRoll.ts:155"
+  },
+  {
+    "teal": 810,
+    "source": "LuckyVoiRoll.ts:155"
+  },
+  {
+    "teal": 811,
+    "source": "LuckyVoiRoll.ts:155"
+  },
+  {
+    "teal": 812,
+    "source": "LuckyVoiRoll.ts:155"
+  },
+  {
+    "teal": 813,
+    "source": "LuckyVoiRoll.ts:155"
+  },
+  {
+    "teal": 814,
+    "source": "LuckyVoiRoll.ts:155"
+  },
+  {
+    "teal": 818,
+    "source": "LuckyVoiRoll.ts:157"
+  },
+  {
+    "teal": 819,
+    "source": "LuckyVoiRoll.ts:157"
+  },
+  {
+    "teal": 820,
+    "source": "LuckyVoiRoll.ts:157"
+  },
+  {
+    "teal": 821,
+    "source": "LuckyVoiRoll.ts:157"
+  },
+  {
+    "teal": 825,
+    "source": "LuckyVoiRoll.ts:158"
+  },
+  {
+    "teal": 826,
+    "source": "LuckyVoiRoll.ts:158"
+  },
+  {
+    "teal": 827,
+    "source": "LuckyVoiRoll.ts:158"
+  },
+  {
+    "teal": 828,
+    "source": "LuckyVoiRoll.ts:158"
+  },
+  {
+    "teal": 832,
+    "source": "LuckyVoiRoll.ts:159"
+  },
+  {
+    "teal": 833,
+    "source": "LuckyVoiRoll.ts:159"
+  },
+  {
+    "teal": 834,
+    "source": "LuckyVoiRoll.ts:159"
+  },
+  {
+    "teal": 835,
+    "source": "LuckyVoiRoll.ts:159"
+  },
+  {
+    "teal": 839,
+    "source": "LuckyVoiRoll.ts:160"
+  },
+  {
+    "teal": 840,
+    "source": "LuckyVoiRoll.ts:160"
+  },
+  {
+    "teal": 841,
+    "source": "LuckyVoiRoll.ts:160"
+  },
+  {
+    "teal": 842,
+    "source": "LuckyVoiRoll.ts:160"
+  },
+  {
+    "teal": 843,
+    "source": "LuckyVoiRoll.ts:137"
+  },
+  {
+    "teal": 848,
+    "source": "LuckyVoiRoll.ts:163"
+  },
+  {
+    "teal": 849,
+    "source": "LuckyVoiRoll.ts:163"
+  },
+  {
+    "teal": 852,
+    "source": "LuckyVoiRoll.ts:163"
+  },
+  {
+    "teal": 853,
+    "source": "LuckyVoiRoll.ts:163"
+  },
+  {
+    "teal": 854,
+    "source": "LuckyVoiRoll.ts:163"
+  },
+  {
+    "teal": 858,
+    "source": "LuckyVoiRoll.ts:163"
+  },
+  {
+    "teal": 861,
+    "source": "LuckyVoiRoll.ts:163"
+  },
+  {
+    "teal": 862,
+    "source": "LuckyVoiRoll.ts:163"
+  },
+  {
+    "teal": 866,
+    "source": "LuckyVoiRoll.ts:164"
+  },
+  {
+    "teal": 867,
+    "source": "LuckyVoiRoll.ts:164"
+  },
+  {
+    "teal": 868,
+    "source": "LuckyVoiRoll.ts:164"
+  },
+  {
+    "teal": 869,
+    "source": "LuckyVoiRoll.ts:164"
+  },
+  {
+    "teal": 873,
+    "source": "LuckyVoiRoll.ts:165"
+  },
+  {
+    "teal": 874,
+    "source": "LuckyVoiRoll.ts:165"
+  },
+  {
+    "teal": 875,
+    "source": "LuckyVoiRoll.ts:165"
+  },
+  {
+    "teal": 878,
+    "source": "LuckyVoiRoll.ts:165",
+    "errorMessage": "No pending commit"
+  },
+  {
+    "teal": 882,
+    "source": "LuckyVoiRoll.ts:167"
+  },
+  {
+    "teal": 883,
+    "source": "LuckyVoiRoll.ts:8"
+  },
+  {
+    "teal": 884,
+    "source": "LuckyVoiRoll.ts:167"
+  },
+  {
+    "teal": 885,
+    "source": "LuckyVoiRoll.ts:167"
+  },
+  {
+    "teal": 889,
+    "source": "LuckyVoiRoll.ts:168"
+  },
+  {
+    "teal": 890,
+    "source": "LuckyVoiRoll.ts:168"
+  },
+  {
+    "teal": 891,
+    "source": "LuckyVoiRoll.ts:168"
+  },
+  {
+    "teal": 894,
+    "source": "LuckyVoiRoll.ts:168",
+    "errorMessage": "Too early to reveal"
+  },
+  {
+    "teal": 898,
+    "source": "LuckyVoiRoll.ts:169"
+  },
+  {
+    "teal": 899,
+    "source": "LuckyVoiRoll.ts:169"
+  },
+  {
+    "teal": 900,
+    "source": "LuckyVoiRoll.ts:9"
+  },
+  {
+    "teal": 901,
+    "source": "LuckyVoiRoll.ts:169"
+  },
+  {
+    "teal": 902,
+    "source": "LuckyVoiRoll.ts:169"
+  },
+  {
+    "teal": 905,
+    "source": "LuckyVoiRoll.ts:169",
+    "errorMessage": "Commit expired — call clearExpiredCommit"
+  },
+  {
+    "teal": 909,
+    "source": "LuckyVoiRoll.ts:171"
+  },
+  {
+    "teal": 910,
+    "source": "LuckyVoiRoll.ts:171"
+  },
+  {
+    "teal": 911,
+    "source": "LuckyVoiRoll.ts:171"
+  },
+  {
+    "teal": 912,
+    "source": "LuckyVoiRoll.ts:171"
+  },
+  {
+    "teal": 916,
+    "source": "LuckyVoiRoll.ts:172"
+  },
+  {
+    "teal": 917,
+    "source": "LuckyVoiRoll.ts:172"
+  },
+  {
+    "teal": 918,
+    "source": "LuckyVoiRoll.ts:172"
+  },
+  {
+    "teal": 919,
+    "source": "LuckyVoiRoll.ts:172"
+  },
+  {
+    "teal": 923,
+    "source": "LuckyVoiRoll.ts:175"
+  },
+  {
+    "teal": 924,
+    "source": "LuckyVoiRoll.ts:175"
+  },
+  {
+    "teal": 925,
+    "source": "LuckyVoiRoll.ts:175"
+  },
+  {
+    "teal": 926,
+    "source": "LuckyVoiRoll.ts:175"
+  },
+  {
+    "teal": 927,
+    "source": "LuckyVoiRoll.ts:175"
+  },
+  {
+    "teal": 928,
+    "source": "LuckyVoiRoll.ts:175"
+  },
+  {
+    "teal": 932,
+    "source": "LuckyVoiRoll.ts:176"
+  },
+  {
+    "teal": 933,
+    "source": "LuckyVoiRoll.ts:176"
+  },
+  {
+    "teal": 934,
+    "source": "LuckyVoiRoll.ts:176"
+  },
+  {
+    "teal": 935,
+    "source": "LuckyVoiRoll.ts:176"
+  },
+  {
+    "teal": 936,
+    "source": "LuckyVoiRoll.ts:176"
+  },
+  {
+    "teal": 939,
+    "source": "LuckyVoiRoll.ts:176",
+    "errorMessage": "Hash mismatch"
+  },
+  {
+    "teal": 943,
+    "source": "LuckyVoiRoll.ts:179"
+  },
+  {
+    "teal": 944,
+    "source": "LuckyVoiRoll.ts:179"
+  },
+  {
+    "teal": 945,
+    "source": "LuckyVoiRoll.ts:179"
+  },
+  {
+    "teal": 946,
+    "source": "LuckyVoiRoll.ts:179"
+  },
+  {
+    "teal": 950,
+    "source": "LuckyVoiRoll.ts:180"
+  },
+  {
+    "teal": 951,
+    "source": "LuckyVoiRoll.ts:180"
+  },
+  {
+    "teal": 952,
+    "source": "LuckyVoiRoll.ts:180"
+  },
+  {
+    "teal": 953,
+    "source": "LuckyVoiRoll.ts:180"
+  },
+  {
+    "teal": 957,
+    "source": "LuckyVoiRoll.ts:181"
+  },
+  {
+    "teal": 958,
+    "source": "LuckyVoiRoll.ts:181"
+  },
+  {
+    "teal": 959,
+    "source": "LuckyVoiRoll.ts:181"
+  },
+  {
+    "teal": 960,
+    "source": "LuckyVoiRoll.ts:181"
+  },
+  {
+    "teal": 964,
+    "source": "LuckyVoiRoll.ts:185"
+  },
+  {
+    "teal": 965,
+    "source": "LuckyVoiRoll.ts:185"
+  },
+  {
+    "teal": 966,
+    "source": "LuckyVoiRoll.ts:185"
+  },
+  {
+    "teal": 967,
+    "source": "LuckyVoiRoll.ts:185"
+  },
+  {
+    "teal": 968,
+    "source": "LuckyVoiRoll.ts:185"
+  },
+  {
+    "teal": 969,
+    "source": "LuckyVoiRoll.ts:185"
+  },
+  {
+    "teal": 970,
+    "source": "LuckyVoiRoll.ts:185"
+  },
+  {
+    "teal": 971,
+    "source": "LuckyVoiRoll.ts:185"
+  },
+  {
+    "teal": 975,
+    "source": "LuckyVoiRoll.ts:186"
+  },
+  {
+    "teal": 976,
+    "source": "LuckyVoiRoll.ts:186"
+  },
+  {
+    "teal": 977,
+    "source": "LuckyVoiRoll.ts:186"
+  },
+  {
+    "teal": 978,
+    "source": "LuckyVoiRoll.ts:186"
+  },
+  {
+    "teal": 979,
+    "source": "LuckyVoiRoll.ts:186"
+  },
+  {
+    "teal": 980,
+    "source": "LuckyVoiRoll.ts:186"
+  },
+  {
+    "teal": 984,
+    "source": "LuckyVoiRoll.ts:187"
+  },
+  {
+    "teal": 985,
+    "source": "LuckyVoiRoll.ts:187"
+  },
+  {
+    "teal": 986,
+    "source": "LuckyVoiRoll.ts:187"
+  },
+  {
+    "teal": 987,
+    "source": "LuckyVoiRoll.ts:187"
+  },
+  {
+    "teal": 988,
+    "source": "LuckyVoiRoll.ts:187"
+  },
+  {
+    "teal": 989,
+    "source": "LuckyVoiRoll.ts:187"
+  },
+  {
+    "teal": 990,
+    "source": "LuckyVoiRoll.ts:187"
+  },
+  {
+    "teal": 991,
+    "source": "LuckyVoiRoll.ts:187"
+  },
+  {
+    "teal": 995,
+    "source": "LuckyVoiRoll.ts:188"
+  },
+  {
+    "teal": 996,
+    "source": "LuckyVoiRoll.ts:188"
+  },
+  {
+    "teal": 997,
+    "source": "LuckyVoiRoll.ts:188"
+  },
+  {
+    "teal": 998,
+    "source": "LuckyVoiRoll.ts:188"
+  },
+  {
+    "teal": 999,
+    "source": "LuckyVoiRoll.ts:188"
+  },
+  {
+    "teal": 1000,
+    "source": "LuckyVoiRoll.ts:188"
+  },
+  {
+    "teal": 1001,
+    "source": "LuckyVoiRoll.ts:188"
+  },
+  {
+    "teal": 1002,
+    "source": "LuckyVoiRoll.ts:188"
+  },
+  {
+    "teal": 1006,
+    "source": "LuckyVoiRoll.ts:189"
+  },
+  {
+    "teal": 1007,
+    "source": "LuckyVoiRoll.ts:189"
+  },
+  {
+    "teal": 1008,
+    "source": "LuckyVoiRoll.ts:189"
+  },
+  {
+    "teal": 1009,
+    "source": "LuckyVoiRoll.ts:189"
+  },
+  {
+    "teal": 1013,
+    "source": "LuckyVoiRoll.ts:191"
+  },
+  {
+    "teal": 1014,
+    "source": "LuckyVoiRoll.ts:191"
+  },
+  {
+    "teal": 1018,
+    "source": "LuckyVoiRoll.ts:192"
+  },
+  {
+    "teal": 1019,
+    "source": "LuckyVoiRoll.ts:192"
+  },
+  {
+    "teal": 1024,
+    "source": "LuckyVoiRoll.ts:193"
+  },
+  {
+    "teal": 1025,
+    "source": "LuckyVoiRoll.ts:193"
+  },
+  {
+    "teal": 1026,
+    "source": "LuckyVoiRoll.ts:193"
+  },
+  {
+    "teal": 1027,
+    "source": "LuckyVoiRoll.ts:193"
+  },
+  {
+    "teal": 1028,
+    "source": "LuckyVoiRoll.ts:193"
+  },
+  {
+    "teal": 1029,
+    "source": "LuckyVoiRoll.ts:193"
+  },
+  {
+    "teal": 1030,
+    "source": "LuckyVoiRoll.ts:193"
+  },
+  {
+    "teal": 1031,
+    "source": "LuckyVoiRoll.ts:193"
+  },
+  {
+    "teal": 1032,
+    "source": "LuckyVoiRoll.ts:193"
+  },
+  {
+    "teal": 1035,
+    "source": "LuckyVoiRoll.ts:193"
+  },
+  {
+    "teal": 1040,
+    "source": "LuckyVoiRoll.ts:193"
+  },
+  {
+    "teal": 1041,
+    "source": "LuckyVoiRoll.ts:193"
+  },
+  {
+    "teal": 1045,
+    "source": "LuckyVoiRoll.ts:193"
+  },
+  {
+    "teal": 1046,
+    "source": "LuckyVoiRoll.ts:193"
+  },
+  {
+    "teal": 1047,
+    "source": "LuckyVoiRoll.ts:193"
+  },
+  {
+    "teal": 1048,
+    "source": "LuckyVoiRoll.ts:193"
+  },
+  {
+    "teal": 1049,
+    "source": "LuckyVoiRoll.ts:193"
+  },
+  {
+    "teal": 1054,
+    "source": "LuckyVoiRoll.ts:194"
+  },
+  {
+    "teal": 1055,
+    "source": "LuckyVoiRoll.ts:194"
+  },
+  {
+    "teal": 1056,
+    "source": "LuckyVoiRoll.ts:194"
+  },
+  {
+    "teal": 1057,
+    "source": "LuckyVoiRoll.ts:194"
+  },
+  {
+    "teal": 1058,
+    "source": "LuckyVoiRoll.ts:194"
+  },
+  {
+    "teal": 1059,
+    "source": "LuckyVoiRoll.ts:194"
+  },
+  {
+    "teal": 1060,
+    "source": "LuckyVoiRoll.ts:194"
+  },
+  {
+    "teal": 1061,
+    "source": "LuckyVoiRoll.ts:194"
+  },
+  {
+    "teal": 1062,
+    "source": "LuckyVoiRoll.ts:194"
+  },
+  {
+    "teal": 1065,
+    "source": "LuckyVoiRoll.ts:194"
+  },
+  {
+    "teal": 1070,
+    "source": "LuckyVoiRoll.ts:194"
+  },
+  {
+    "teal": 1071,
+    "source": "LuckyVoiRoll.ts:194"
+  },
+  {
+    "teal": 1075,
+    "source": "LuckyVoiRoll.ts:194"
+  },
+  {
+    "teal": 1076,
+    "source": "LuckyVoiRoll.ts:194"
+  },
+  {
+    "teal": 1077,
+    "source": "LuckyVoiRoll.ts:194"
+  },
+  {
+    "teal": 1078,
+    "source": "LuckyVoiRoll.ts:194"
+  },
+  {
+    "teal": 1079,
+    "source": "LuckyVoiRoll.ts:194"
+  },
+  {
+    "teal": 1084,
+    "source": "LuckyVoiRoll.ts:195"
+  },
+  {
+    "teal": 1085,
+    "source": "LuckyVoiRoll.ts:195"
+  },
+  {
+    "teal": 1086,
+    "source": "LuckyVoiRoll.ts:195"
+  },
+  {
+    "teal": 1087,
+    "source": "LuckyVoiRoll.ts:195"
+  },
+  {
+    "teal": 1088,
+    "source": "LuckyVoiRoll.ts:195"
+  },
+  {
+    "teal": 1089,
+    "source": "LuckyVoiRoll.ts:195"
+  },
+  {
+    "teal": 1090,
+    "source": "LuckyVoiRoll.ts:195"
+  },
+  {
+    "teal": 1091,
+    "source": "LuckyVoiRoll.ts:195"
+  },
+  {
+    "teal": 1092,
+    "source": "LuckyVoiRoll.ts:195"
+  },
+  {
+    "teal": 1095,
+    "source": "LuckyVoiRoll.ts:195"
+  },
+  {
+    "teal": 1100,
+    "source": "LuckyVoiRoll.ts:195"
+  },
+  {
+    "teal": 1101,
+    "source": "LuckyVoiRoll.ts:195"
+  },
+  {
+    "teal": 1105,
+    "source": "LuckyVoiRoll.ts:195"
+  },
+  {
+    "teal": 1106,
+    "source": "LuckyVoiRoll.ts:195"
+  },
+  {
+    "teal": 1107,
+    "source": "LuckyVoiRoll.ts:195"
+  },
+  {
+    "teal": 1108,
+    "source": "LuckyVoiRoll.ts:195"
+  },
+  {
+    "teal": 1113,
+    "source": "LuckyVoiRoll.ts:197"
+  },
+  {
+    "teal": 1114,
+    "source": "LuckyVoiRoll.ts:197"
+  },
+  {
+    "teal": 1115,
+    "source": "LuckyVoiRoll.ts:197"
+  },
+  {
+    "teal": 1116,
+    "source": "LuckyVoiRoll.ts:197"
+  },
+  {
+    "teal": 1117,
+    "source": "LuckyVoiRoll.ts:197"
+  },
+  {
+    "teal": 1118,
+    "source": "LuckyVoiRoll.ts:197"
+  },
+  {
+    "teal": 1123,
+    "source": "LuckyVoiRoll.ts:198"
+  },
+  {
+    "teal": 1124,
+    "source": "LuckyVoiRoll.ts:198"
+  },
+  {
+    "teal": 1129,
+    "source": "LuckyVoiRoll.ts:199"
+  },
+  {
+    "teal": 1130,
+    "source": "LuckyVoiRoll.ts:199"
+  },
+  {
+    "teal": 1131,
+    "source": "LuckyVoiRoll.ts:199"
+  },
+  {
+    "teal": 1132,
+    "source": "LuckyVoiRoll.ts:199"
+  },
+  {
+    "teal": 1133,
+    "source": "LuckyVoiRoll.ts:199"
+  },
+  {
+    "teal": 1134,
+    "source": "LuckyVoiRoll.ts:199"
+  },
+  {
+    "teal": 1138,
+    "source": "LuckyVoiRoll.ts:200"
+  },
+  {
+    "teal": 1139,
+    "source": "LuckyVoiRoll.ts:200"
+  },
+  {
+    "teal": 1140,
+    "source": "LuckyVoiRoll.ts:200"
+  },
+  {
+    "teal": 1141,
+    "source": "LuckyVoiRoll.ts:200"
+  },
+  {
+    "teal": 1142,
+    "source": "LuckyVoiRoll.ts:200"
+  },
+  {
+    "teal": 1143,
+    "source": "LuckyVoiRoll.ts:200"
+  },
+  {
+    "teal": 1149,
+    "source": "LuckyVoiRoll.ts:202"
+  },
+  {
+    "teal": 1150,
+    "source": "LuckyVoiRoll.ts:202"
+  },
+  {
+    "teal": 1151,
+    "source": "LuckyVoiRoll.ts:202"
+  },
+  {
+    "teal": 1152,
+    "source": "LuckyVoiRoll.ts:202"
+  },
+  {
+    "teal": 1153,
+    "source": "LuckyVoiRoll.ts:202"
+  },
+  {
+    "teal": 1154,
+    "source": "LuckyVoiRoll.ts:202"
+  },
+  {
+    "teal": 1155,
+    "source": "LuckyVoiRoll.ts:202"
+  },
+  {
+    "teal": 1160,
+    "source": "LuckyVoiRoll.ts:203"
+  },
+  {
+    "teal": 1161,
+    "source": "LuckyVoiRoll.ts:203"
+  },
+  {
+    "teal": 1162,
+    "source": "LuckyVoiRoll.ts:203"
+  },
+  {
+    "teal": 1163,
+    "source": "LuckyVoiRoll.ts:203"
+  },
+  {
+    "teal": 1164,
+    "source": "LuckyVoiRoll.ts:203"
+  },
+  {
+    "teal": 1165,
+    "source": "LuckyVoiRoll.ts:203"
+  },
+  {
+    "teal": 1166,
+    "source": "LuckyVoiRoll.ts:203"
+  },
+  {
+    "teal": 1167,
+    "source": "LuckyVoiRoll.ts:203"
+  },
+  {
+    "teal": 1172,
+    "source": "LuckyVoiRoll.ts:204"
+  },
+  {
+    "teal": 1173,
+    "source": "LuckyVoiRoll.ts:204"
+  },
+  {
+    "teal": 1178,
+    "source": "LuckyVoiRoll.ts:204"
+  },
+  {
+    "teal": 1179,
+    "source": "LuckyVoiRoll.ts:204"
+  },
+  {
+    "teal": 1180,
+    "source": "LuckyVoiRoll.ts:204"
+  },
+  {
+    "teal": 1181,
+    "source": "LuckyVoiRoll.ts:204"
+  },
+  {
+    "teal": 1182,
+    "source": "LuckyVoiRoll.ts:204"
+  },
+  {
+    "teal": 1183,
+    "source": "LuckyVoiRoll.ts:204"
+  },
+  {
+    "teal": 1184,
+    "source": "LuckyVoiRoll.ts:204"
+  },
+  {
+    "teal": 1185,
+    "source": "LuckyVoiRoll.ts:204"
+  },
+  {
+    "teal": 1192,
+    "source": "LuckyVoiRoll.ts:207"
+  },
+  {
+    "teal": 1193,
+    "source": "LuckyVoiRoll.ts:207"
+  },
+  {
+    "teal": 1194,
+    "source": "LuckyVoiRoll.ts:207"
+  },
+  {
+    "teal": 1195,
+    "source": "LuckyVoiRoll.ts:207"
+  },
+  {
+    "teal": 1196,
+    "source": "LuckyVoiRoll.ts:207"
+  },
+  {
+    "teal": 1197,
+    "source": "LuckyVoiRoll.ts:207"
+  },
+  {
+    "teal": 1198,
+    "source": "LuckyVoiRoll.ts:207"
+  },
+  {
+    "teal": 1199,
+    "source": "LuckyVoiRoll.ts:207"
+  },
+  {
+    "teal": 1200,
+    "source": "LuckyVoiRoll.ts:207"
+  },
+  {
+    "teal": 1201,
+    "source": "LuckyVoiRoll.ts:207"
+  },
+  {
+    "teal": 1202,
+    "source": "LuckyVoiRoll.ts:207"
+  },
+  {
+    "teal": 1203,
+    "source": "LuckyVoiRoll.ts:207"
+  },
+  {
+    "teal": 1204,
+    "source": "LuckyVoiRoll.ts:207"
+  },
+  {
+    "teal": 1205,
+    "source": "LuckyVoiRoll.ts:207"
+  },
+  {
+    "teal": 1206,
+    "source": "LuckyVoiRoll.ts:207"
+  },
+  {
+    "teal": 1207,
+    "source": "LuckyVoiRoll.ts:207"
+  },
+  {
+    "teal": 1208,
+    "source": "LuckyVoiRoll.ts:207"
+  },
+  {
+    "teal": 1209,
+    "source": "LuckyVoiRoll.ts:207"
+  },
+  {
+    "teal": 1210,
+    "source": "LuckyVoiRoll.ts:207"
+  },
+  {
+    "teal": 1211,
+    "source": "LuckyVoiRoll.ts:207"
+  },
+  {
+    "teal": 1216,
+    "source": "LuckyVoiRoll.ts:208"
+  },
+  {
+    "teal": 1217,
+    "source": "LuckyVoiRoll.ts:208"
+  },
+  {
+    "teal": 1222,
+    "source": "LuckyVoiRoll.ts:208"
+  },
+  {
+    "teal": 1223,
+    "source": "LuckyVoiRoll.ts:208"
+  },
+  {
+    "teal": 1224,
+    "source": "LuckyVoiRoll.ts:208"
+  },
+  {
+    "teal": 1228,
+    "source": "LuckyVoiRoll.ts:208"
+  },
+  {
+    "teal": 1229,
+    "source": "LuckyVoiRoll.ts:208"
+  },
+  {
+    "teal": 1233,
+    "source": "LuckyVoiRoll.ts:208"
+  },
+  {
+    "teal": 1234,
+    "source": "LuckyVoiRoll.ts:208"
+  },
+  {
+    "teal": 1238,
+    "source": "LuckyVoiRoll.ts:208"
+  },
+  {
+    "teal": 1239,
+    "source": "LuckyVoiRoll.ts:208"
+  },
+  {
+    "teal": 1242,
+    "source": "LuckyVoiRoll.ts:208"
+  },
+  {
+    "teal": 1243,
+    "source": "LuckyVoiRoll.ts:208"
+  },
+  {
+    "teal": 1246,
+    "source": "LuckyVoiRoll.ts:208"
+  },
+  {
+    "teal": 1252,
+    "source": "LuckyVoiRoll.ts:211"
+  },
+  {
+    "teal": 1253,
+    "source": "LuckyVoiRoll.ts:211"
+  },
+  {
+    "teal": 1254,
+    "source": "LuckyVoiRoll.ts:211"
+  },
+  {
+    "teal": 1255,
+    "source": "LuckyVoiRoll.ts:211"
+  },
+  {
+    "teal": 1256,
+    "source": "LuckyVoiRoll.ts:211"
+  },
+  {
+    "teal": 1257,
+    "source": "LuckyVoiRoll.ts:211"
+  },
+  {
+    "teal": 1258,
+    "source": "LuckyVoiRoll.ts:7"
+  },
+  {
+    "teal": 1259,
+    "source": "LuckyVoiRoll.ts:211"
+  },
+  {
+    "teal": 1260,
+    "source": "LuckyVoiRoll.ts:211"
+  },
+  {
+    "teal": 1261,
+    "source": "LuckyVoiRoll.ts:211"
+  },
+  {
+    "teal": 1266,
+    "source": "LuckyVoiRoll.ts:212"
+  },
+  {
+    "teal": 1267,
+    "source": "LuckyVoiRoll.ts:212"
+  },
+  {
+    "teal": 1268,
+    "source": "LuckyVoiRoll.ts:212"
+  },
+  {
+    "teal": 1271,
+    "source": "LuckyVoiRoll.ts:163"
+  },
+  {
+    "teal": 1276,
+    "source": "LuckyVoiRoll.ts:220"
+  },
+  {
+    "teal": 1277,
+    "source": "LuckyVoiRoll.ts:220"
+  },
+  {
+    "teal": 1278,
+    "source": "LuckyVoiRoll.ts:220"
+  },
+  {
+    "teal": 1285,
+    "source": "LuckyVoiRoll.ts:220"
+  },
+  {
+    "teal": 1288,
+    "source": "LuckyVoiRoll.ts:220"
+  },
+  {
+    "teal": 1292,
+    "source": "LuckyVoiRoll.ts:221"
+  },
+  {
+    "teal": 1293,
+    "source": "LuckyVoiRoll.ts:221"
+  },
+  {
+    "teal": 1294,
+    "source": "LuckyVoiRoll.ts:221"
+  },
+  {
+    "teal": 1295,
+    "source": "LuckyVoiRoll.ts:221"
+  },
+  {
+    "teal": 1299,
+    "source": "LuckyVoiRoll.ts:222"
+  },
+  {
+    "teal": 1300,
+    "source": "LuckyVoiRoll.ts:222"
+  },
+  {
+    "teal": 1301,
+    "source": "LuckyVoiRoll.ts:222"
+  },
+  {
+    "teal": 1304,
+    "source": "LuckyVoiRoll.ts:222",
+    "errorMessage": "No pending commit"
+  },
+  {
+    "teal": 1311,
+    "source": "LuckyVoiRoll.ts:224"
+  },
+  {
+    "teal": 1312,
+    "source": "LuckyVoiRoll.ts:224"
+  },
+  {
+    "teal": 1313,
+    "source": "LuckyVoiRoll.ts:8"
+  },
+  {
+    "teal": 1314,
+    "source": "LuckyVoiRoll.ts:224"
+  },
+  {
+    "teal": 1315,
+    "source": "LuckyVoiRoll.ts:9"
+  },
+  {
+    "teal": 1316,
+    "source": "LuckyVoiRoll.ts:224"
+  },
+  {
+    "teal": 1317,
+    "source": "LuckyVoiRoll.ts:224"
+  },
+  {
+    "teal": 1320,
+    "source": "LuckyVoiRoll.ts:223",
+    "errorMessage": "Commit has not yet expired"
+  },
+  {
+    "teal": 1324,
+    "source": "LuckyVoiRoll.ts:227"
+  },
+  {
+    "teal": 1325,
+    "source": "LuckyVoiRoll.ts:227"
+  },
+  {
+    "teal": 1326,
+    "source": "LuckyVoiRoll.ts:227"
+  },
+  {
+    "teal": 1327,
+    "source": "LuckyVoiRoll.ts:227"
+  },
+  {
+    "teal": 1331,
+    "source": "LuckyVoiRoll.ts:228"
+  },
+  {
+    "teal": 1332,
+    "source": "LuckyVoiRoll.ts:228"
+  },
+  {
+    "teal": 1333,
+    "source": "LuckyVoiRoll.ts:228"
+  },
+  {
+    "teal": 1334,
+    "source": "LuckyVoiRoll.ts:228"
+  },
+  {
+    "teal": 1338,
+    "source": "LuckyVoiRoll.ts:229"
+  },
+  {
+    "teal": 1339,
+    "source": "LuckyVoiRoll.ts:229"
+  },
+  {
+    "teal": 1340,
+    "source": "LuckyVoiRoll.ts:229"
+  },
+  {
+    "teal": 1341,
+    "source": "LuckyVoiRoll.ts:229"
+  },
+  {
+    "teal": 1342,
+    "source": "LuckyVoiRoll.ts:220"
+  },
+  {
+    "teal": 1345,
+    "source": "LuckyVoiRoll.ts:12"
+  },
+  {
+    "teal": 1346,
+    "source": "LuckyVoiRoll.ts:12"
+  },
+  {
+    "teal": 1347,
+    "source": "LuckyVoiRoll.ts:12"
+  },
+  {
+    "teal": 1350,
+    "source": "LuckyVoiRoll.ts:12",
+    "errorMessage": "this contract does not implement the given ABI method for create NoOp"
+  },
+  {
+    "teal": 1353,
+    "source": "LuckyVoiRoll.ts:12"
+  },
+  {
+    "teal": 1354,
+    "source": "LuckyVoiRoll.ts:12"
+  },
+  {
+    "teal": 1355,
+    "source": "LuckyVoiRoll.ts:12"
+  },
+  {
+    "teal": 1356,
+    "source": "LuckyVoiRoll.ts:12"
+  },
+  {
+    "teal": 1357,
+    "source": "LuckyVoiRoll.ts:12"
+  },
+  {
+    "teal": 1358,
+    "source": "LuckyVoiRoll.ts:12"
+  },
+  {
+    "teal": 1359,
+    "source": "LuckyVoiRoll.ts:12"
+  },
+  {
+    "teal": 1360,
+    "source": "LuckyVoiRoll.ts:12"
+  },
+  {
+    "teal": 1361,
+    "source": "LuckyVoiRoll.ts:12"
+  },
+  {
+    "teal": 1362,
+    "source": "LuckyVoiRoll.ts:12"
+  },
+  {
+    "teal": 1363,
+    "source": "LuckyVoiRoll.ts:12"
+  },
+  {
+    "teal": 1364,
+    "source": "LuckyVoiRoll.ts:12"
+  },
+  {
+    "teal": 1365,
+    "source": "LuckyVoiRoll.ts:12"
+  },
+  {
+    "teal": 1366,
+    "source": "LuckyVoiRoll.ts:12"
+  },
+  {
+    "teal": 1369,
+    "source": "LuckyVoiRoll.ts:12",
+    "errorMessage": "this contract does not implement the given ABI method for call NoOp"
+  }
+]

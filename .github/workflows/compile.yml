@@ -30,7 +30,7 @@ jobs:
         run: |
           mkdir -p artifacts
           cd contract
-          npx @algorandfoundation/tealscript LuckyVoiRoll.ts ../artifacts/
+          npx @algorandfoundation/tealscript --skip-algod LuckyVoiRoll.ts ../artifacts/
           ls -la ../artifacts/
 
       - name: Verify artifacts
