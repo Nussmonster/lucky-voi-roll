@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
   push:
     paths:
-      - 'contract/LuckyVoiRoll.ts'
+      - 'contract/LuckyVoiRoll.py'
 
 jobs:
   compile:
@@ -16,33 +16,28 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
+      - name: Setup Python
+        uses: actions/setup-python@v5
         with:
-          node-version: '24'
-          cache: 'npm'
-          cache-dependency-path: contract/package-lock.json
+          python-version: '3.11'
 
-      - name: Install dependencies
-        run: cd contract && npm ci
+      - name: Install PyTeal
+        run: pip install pyteal==0.25.0 algosdk
 
-      - name: Compile TEALScript
-        run: |
-          mkdir -p artifacts
-          cd contract
-          npx @algorandfoundation/tealscript LuckyVoiRoll.ts ../artifacts/
-          ls -la ../artifacts/
+      - name: Compile contract
+        run: python contract/LuckyVoiRoll.py
 
       - name: Verify artifacts
         run: |
+          ls -la artifacts/
           test -f artifacts/LuckyVoiRoll.approval.teal || (echo "ERROR: approval.teal missing" && exit 1)
-          test -f artifacts/LuckyVoiRoll.clear.teal    || (echo "ERROR: clear.teal missing" && exit 1)
-          test -f artifacts/LuckyVoiRoll.arc32.json    || (echo "ERROR: arc32.json missing" && exit 1)
+          test -f artifacts/LuckyVoiRoll.clear.teal    || (echo "ERROR: clear.teal missing"    && exit 1)
+          test -f artifacts/LuckyVoiRoll.arc32.json    || (echo "ERROR: arc32.json missing"    && exit 1)
           echo "All 3 artifacts present."
 
       - name: Commit artifacts
         run: |
-          git config user.name "github-actions[bot]"
+          git config user.name  "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add -f artifacts/
           git diff --staged --quiet && echo "No changes" || git commit -m "chore: compile artifacts [skip ci]"
