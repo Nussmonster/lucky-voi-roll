@@ -22,7 +22,7 @@ jobs:
           python-version: '3.11'
 
       - name: Install PyTeal
-        run: pip install pyteal==0.25.0 algorand-sdk
+        run: pip install pyteal==0.25.0 py-algorand-sdk
 
       - name: Compile contract
         run: python contract/LuckyVoiRoll.py
