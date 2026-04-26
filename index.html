@@ -1,0 +1,28 @@
+cd ~/lucky-voi-roll
+python3 -c "
+content = '''import os, json
+from pyteal import *
+
+MIN_BALANCE_RESERVE = Int(1_000_000)
+DEFAULT_MIN_BET = Int(1_000_000)
+DEFAULT_MAX_BET = Int(1_000_000_000)
+MAX_BET_CAP = Int(10_000_000_000)
+
+OW = Bytes(\"ow\")
+PO = Bytes(\"po\")
+PA = Bytes(\"pa\")
+HB = Bytes(\"hb\")
+MN = Bytes(\"mn\")
+MX = Bytes(\"mx\")
+TG = Bytes(\"tg\")
+TW = Bytes(\"tw\")
+TP = Bytes(\"tp\")
+NC = Bytes(\"nc\")
+PG = Bytes(\"pg\")
+PW = Bytes(\"pw\")
+'''
+with open('contract/LuckyVoiRoll.py', 'w') as f:
+    f.write(content)
+print('done')
+"
+head -3 contract/LuckyVoiRoll.py
