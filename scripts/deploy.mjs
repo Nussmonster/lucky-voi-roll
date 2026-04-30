@@ -1,6 +1,6 @@
-// scripts/deploy.mjs  (v1.1 — post-audit patch)
-// H-02 fix: single funding path, no double-fund, no spurious createApplication call.
-// M-01 fix: reads schema from ARC-32 artifact instead of hardcoding slot counts.
+// scripts/deploy.mjs  (v1.2 — security-audit patch)
+// Fixes: fundHouse routing (plain-string args), BigInt precision, idempotency guard,
+//        local state schema updated for commit-reveal (5 uints, 1 byte slice).
 
 import algosdk from 'algosdk';
 import fs from 'fs';
@@ -25,11 +25,10 @@ const NETWORKS = {
   },
 };
 
-const HOUSE_SEED_MICRO_VOI = BigInt(
-  process.env.HOUSE_SEED_VOI
-    ? Math.round(Number(process.env.HOUSE_SEED_VOI) * 1_000_000)
-    : 100_000_000   // 100 VOI default
-);
+// Use BigInt arithmetic throughout to avoid Number precision loss above ~9,007 VOI
+const HOUSE_SEED_MICRO_VOI = process.env.HOUSE_SEED_VOI
+  ? BigInt(process.env.HOUSE_SEED_VOI) * 1_000_000n
+  : 100_000_000n;  // 100 VOI default
 
 async function main() {
   const netArg = process.argv[2] ?? 'testnet';
@@ -52,19 +51,33 @@ async function main() {
     console.error('TEAL not found. Run: npm run compile'); process.exit(1);
   }
 
+  // Idempotency guard — prevent double-deploy and orphaned contracts
+  const deploymentPath = path.join(artifactsDir, `deployment.${netArg}.json`);
+  if (fs.existsSync(deploymentPath)) {
+    const existing = JSON.parse(fs.readFileSync(deploymentPath, 'utf8'));
+    console.error(`Already deployed on ${netArg}: App ID ${existing.appId} (${existing.deployedAt})`);
+    console.error('Delete artifacts/deployment.' + netArg + '.json to redeploy.');
+    process.exit(1);
+  }
+
   const approvalSource = fs.readFileSync(approvalPath, 'utf8');
   const clearSource    = fs.readFileSync(clearPath, 'utf8');
 
-  // M-01: read schema from ARC-32 artifact, not hardcoded values
-  let numGlobalInts = 9, numGlobalByteSlices = 2; // safe defaults (owner + pendingOwner)
+  // Read schema from ARC-32 artifact
+  let numGlobalInts = 8, numGlobalByteSlices = 2;
+  let numLocalInts  = 5, numLocalByteSlices  = 1;
   if (fs.existsSync(arc32Path)) {
     const arc32 = JSON.parse(fs.readFileSync(arc32Path, 'utf8'));
-    const gs    = arc32?.state?.global ?? {};
-    numGlobalInts       = gs.num_uints ?? numGlobalInts;
+    const gs = arc32?.state?.global ?? {};
+    const ls = arc32?.state?.local  ?? {};
+    numGlobalInts       = gs.num_uints       ?? numGlobalInts;
     numGlobalByteSlices = gs.num_byte_slices ?? numGlobalByteSlices;
-    console.log(`Schema from ARC-32: ${numGlobalInts} ints, ${numGlobalByteSlices} byte slices`);
+    numLocalInts        = ls.num_uints       ?? numLocalInts;
+    numLocalByteSlices  = ls.num_byte_slices ?? numLocalByteSlices;
+    console.log(`Global schema: ${numGlobalInts} ints, ${numGlobalByteSlices} byte slices`);
+    console.log(`Local  schema: ${numLocalInts} ints, ${numLocalByteSlices} byte slices`);
   } else {
-    console.warn('ARC-32 not found — using default schema counts. Run compile first.');
+    console.warn('ARC-32 not found — using defaults. Run compile first.');
   }
 
   console.log(`\n🎲 Lucky Voi Roll — Deploying to ${net.name}`);
@@ -101,8 +114,8 @@ async function main() {
     clearProgram,
     numGlobalByteSlices,
     numGlobalInts,
-    numLocalByteSlices: 0,
-    numLocalInts:       2,  // pg (playerGames) + pw (playerWon)
+    numLocalByteSlices,
+    numLocalInts,
   });
 
   const { txid } = await algod.sendRawTransaction(createTxn.signTxn(account.sk)).do();
@@ -134,8 +147,6 @@ async function main() {
   console.log('✅ App funded:', (Number(totalFund) / 1e6).toFixed(3), 'VOI →', appAddress);
 
   // ── Call fundHouse() to credit HOUSE_SEED to houseBalance ─────────
-  // H-02 fix: use the fundHouse() method (grouped PayTxn + AppCall)
-  // rather than a separate createApplication() init call.
   const p3 = await algod.getTransactionParams().do();
 
   const housePayTxn = algosdk.makePaymentTxnWithSuggestedParamsFromObject({
@@ -146,13 +157,12 @@ async function main() {
     note:            new TextEncoder().encode('LVR house seed'),
   });
 
-  // ABI selector for fundHouse(pay)void
-  const fundSelector = algosdk.ABIMethod.fromSignature('fundHouse(pay)void').getSelector();
-  const fundCallTxn  = algosdk.makeApplicationCallTxnFromObject({
+  // Contract routes on the plain UTF-8 method name, not an ABI selector
+  const fundCallTxn = algosdk.makeApplicationCallTxnFromObject({
     sender:          account.addr,
     appIndex:        appId,
     onComplete:      algosdk.OnApplicationComplete.NoOpOC,
-    appArgs:         [fundSelector],
+    appArgs:         [Buffer.from('fundHouse', 'utf8')],
     suggestedParams: { ...p3, fee: 1000, flatFee: true },
   });
 
@@ -168,7 +178,7 @@ async function main() {
   // ── Save ──────────────────────────────────────────────────────────
   const info2 = { network: netArg, appId, appAddress, deployer: account.addr, deployedAt: new Date().toISOString() };
   fs.mkdirSync(artifactsDir, { recursive: true });
-  fs.writeFileSync(path.join(artifactsDir, `deployment.${netArg}.json`), JSON.stringify(info2, null, 2));
+  fs.writeFileSync(deploymentPath, JSON.stringify(info2, null, 2));
 
   console.log('\n─'.repeat(48));
   console.log('🎲 Live on', net.name);
