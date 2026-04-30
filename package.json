@@ -1,0 +1,15 @@
+{
+  "name": "lucky-voi-roll",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "compile": "python contract/LuckyVoiRoll.py",
+    "deploy:testnet": "node scripts/deploy.mjs testnet",
+    "deploy:mainnet": "node scripts/deploy.mjs mainnet"
+  },
+  "dependencies": {
+    "algosdk": "^3.0.0",
+    "dotenv": "^16.4.5"
+  }
+}
