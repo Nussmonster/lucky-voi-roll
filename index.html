@@ -1,28 +1,967 @@
-cd ~/lucky-voi-roll
-python3 -c "
-content = '''import os, json
-from pyteal import *
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Lucky Voi Roll</title>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#080818;--card:#110a24;--border:rgba(139,92,246,.25);
+  --purple:#7c3aed;--purple-lt:#a78bfa;--gold:#f59e0b;--gold-lt:#fbbf24;
+  --green:#10b981;--red:#ef4444;--text:#e2e8f0;--muted:#64748b;
+  --die-bg:#f5f0ff;--die-pip:#1e1040;
+}
+html,body{height:100%;background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;overflow-x:hidden}
+body{display:flex;flex-direction:column;min-height:100vh}
 
-MIN_BALANCE_RESERVE = Int(1_000_000)
-DEFAULT_MIN_BET = Int(1_000_000)
-DEFAULT_MAX_BET = Int(1_000_000_000)
-MAX_BET_CAP = Int(10_000_000_000)
+#stars-canvas{position:fixed;inset:0;z-index:0;pointer-events:none}
+#confetti-canvas{position:fixed;inset:0;z-index:99;pointer-events:none}
 
-OW = Bytes(\"ow\")
-PO = Bytes(\"po\")
-PA = Bytes(\"pa\")
-HB = Bytes(\"hb\")
-MN = Bytes(\"mn\")
-MX = Bytes(\"mx\")
-TG = Bytes(\"tg\")
-TW = Bytes(\"tw\")
-TP = Bytes(\"tp\")
-NC = Bytes(\"nc\")
-PG = Bytes(\"pg\")
-PW = Bytes(\"pw\")
-'''
-with open('contract/LuckyVoiRoll.py', 'w') as f:
-    f.write(content)
-print('done')
-"
-head -3 contract/LuckyVoiRoll.py
+/* Header */
+header{
+  position:relative;z-index:10;display:flex;align-items:center;
+  justify-content:space-between;padding:.875rem 1.5rem;
+  border-bottom:1px solid var(--border);
+  background:rgba(8,8,24,.85);backdrop-filter:blur(12px);
+}
+.logo{
+  display:flex;align-items:center;gap:.6rem;font-size:1.4rem;font-weight:900;
+  background:linear-gradient(135deg,var(--purple-lt),var(--gold));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+}
+.logo-icon{font-size:1.9rem;-webkit-text-fill-color:initial}
+.net-badge{
+  font-size:.7rem;font-weight:700;padding:.2rem .7rem;border-radius:9999px;
+  border:1px solid var(--green);color:var(--green);letter-spacing:.06em;text-transform:uppercase;
+}
+
+/* Main */
+main{
+  position:relative;z-index:10;flex:1;display:flex;flex-direction:column;
+  align-items:center;padding:1.5rem 1rem 2rem;gap:1.25rem;
+  max-width:580px;width:100%;margin:0 auto;
+}
+
+/* Card */
+.card{
+  width:100%;background:var(--card);border:1px solid var(--border);
+  border-radius:1.25rem;padding:1.25rem;
+  box-shadow:0 0 40px rgba(124,58,237,.08);
+}
+
+/* Config banner */
+#config-banner{
+  display:none;width:100%;padding:.7rem 1rem;
+  background:rgba(245,158,11,.08);border:1px solid rgba(245,158,11,.35);
+  border-radius:1rem;align-items:center;gap:.75rem;font-size:.85rem;flex-wrap:wrap;
+}
+#config-banner input{
+  flex:1;min-width:110px;padding:.35rem .7rem;border-radius:.5rem;
+  border:1px solid var(--border);background:rgba(0,0,0,.3);color:var(--text);font-size:.85rem;
+}
+
+/* Wallet row */
+#wallet-section{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:.75rem}
+.addr-text{font-family:monospace;font-size:.82rem;color:var(--purple-lt)}
+#balance-pill{
+  display:none;font-size:.82rem;font-weight:700;color:var(--gold);
+  background:rgba(245,158,11,.12);border:1px solid rgba(245,158,11,.3);
+  padding:.2rem .65rem;border-radius:9999px;
+}
+
+/* Buttons */
+.btn{
+  cursor:pointer;border:none;border-radius:.75rem;font-weight:700;
+  font-size:.875rem;padding:.55rem 1.1rem;transition:all .18s;white-space:nowrap;
+}
+.btn:active{transform:scale(.97)}
+.btn:disabled{opacity:.4;cursor:not-allowed;transform:none}
+.btn-purple{
+  background:linear-gradient(135deg,var(--purple),#5b21b6);color:#fff;
+  box-shadow:0 0 18px rgba(124,58,237,.35);
+}
+.btn-purple:hover:not(:disabled){box-shadow:0 0 28px rgba(124,58,237,.55)}
+.btn-gold{
+  background:linear-gradient(135deg,var(--gold),#d97706);color:#1a0a00;
+  box-shadow:0 0 18px rgba(245,158,11,.35);
+}
+.btn-gold:hover:not(:disabled){box-shadow:0 0 28px rgba(245,158,11,.55)}
+.btn-ghost{background:transparent;border:1px solid var(--border);color:var(--text)}
+.btn-ghost:hover:not(:disabled){border-color:var(--purple-lt);color:var(--purple-lt)}
+.btn-danger{background:linear-gradient(135deg,#b91c1c,#7f1d1d);color:#fff}
+
+/* Bet type */
+#bet-types{display:grid;grid-template-columns:repeat(3,1fr);gap:.65rem;margin-bottom:1.25rem}
+.bt-btn{
+  display:flex;flex-direction:column;align-items:center;gap:.2rem;
+  padding:.9rem .4rem;border-radius:.9rem;cursor:pointer;
+  border:2px solid var(--border);background:rgba(139,92,246,.04);
+  transition:all .18s;color:var(--text);font-size:inherit;
+}
+.bt-btn:hover{border-color:var(--purple);background:rgba(139,92,246,.09)}
+.bt-btn.selected{border-color:var(--purple);background:rgba(124,58,237,.18);box-shadow:0 0 16px rgba(124,58,237,.2)}
+.bt-btn.lucky.selected{border-color:var(--gold);background:rgba(245,158,11,.13);box-shadow:0 0 16px rgba(245,158,11,.22)}
+.bt-icon{font-size:1.6rem}
+.bt-label{font-size:.78rem;font-weight:700}
+.bt-payout{font-size:1.15rem;font-weight:900;color:var(--gold)}
+.bt-range{font-size:.65rem;color:var(--muted)}
+
+/* Dice */
+#dice-area{display:flex;align-items:center;justify-content:center;gap:1.25rem;padding:1rem 0}
+.die{
+  width:96px;height:96px;border-radius:16px;background:var(--die-bg);position:relative;
+  box-shadow:0 0 0 2.5px rgba(139,92,246,.3),0 8px 28px rgba(0,0,0,.45);
+  transition:box-shadow .3s;flex-shrink:0;overflow:visible;
+}
+.die-q{
+  display:flex;align-items:center;justify-content:center;
+  height:100%;font-size:2rem;color:rgba(167,139,250,.35);
+}
+.die.rolling{animation:dieShake .11s ease-in-out infinite;box-shadow:0 0 0 2.5px var(--purple),0 8px 28px rgba(124,58,237,.5)}
+.die.won{box-shadow:0 0 0 2.5px var(--gold),0 8px 28px rgba(245,158,11,.55);animation:diePop .45s cubic-bezier(.34,1.56,.64,1)}
+.die.lost{box-shadow:0 0 0 2.5px var(--red),0 8px 28px rgba(239,68,68,.4);animation:dieLose .4s ease-out}
+@keyframes dieShake{
+  0%{transform:translate(0,0) rotate(0deg)}
+  25%{transform:translate(-3px,2px) rotate(-4deg)}
+  50%{transform:translate(3px,-2px) rotate(4deg)}
+  75%{transform:translate(-2px,3px) rotate(-2deg)}
+  100%{transform:translate(0,0) rotate(0deg)}
+}
+@keyframes diePop{0%{transform:scale(1)} 50%{transform:scale(1.18)} 100%{transform:scale(1)}}
+@keyframes dieLose{0%{transform:translateX(0)} 20%{transform:translateX(-6px)} 40%{transform:translateX(6px)} 60%{transform:translateX(-4px)} 80%{transform:translateX(4px)} 100%{transform:translateX(0)}}
+
+.pip{
+  width:15px;height:15px;border-radius:50%;background:var(--die-pip);
+  position:absolute;transform:translate(-50%,-50%);
+  box-shadow:inset 0 1px 3px rgba(0,0,0,.25);
+}
+.die-sep{font-size:1.75rem;font-weight:700;color:var(--muted);flex-shrink:0}
+.die-total{
+  font-size:2.4rem;font-weight:900;min-width:56px;text-align:center;
+  color:var(--purple-lt);opacity:0;transition:opacity .4s,color .35s;
+}
+.die-total.show{opacity:1}
+.die-total.won{color:var(--gold)}
+.die-total.lost{color:var(--red)}
+
+/* Countdown */
+#countdown{
+  display:none;align-items:center;gap:.9rem;padding:.9rem 1rem;
+  border-radius:.9rem;background:rgba(124,58,237,.08);border:1px solid rgba(124,58,237,.25);
+  margin-bottom:.75rem;
+}
+#countdown.show{display:flex}
+.cd-circle{
+  width:52px;height:52px;border-radius:50%;border:3px solid var(--purple);
+  display:flex;align-items:center;justify-content:center;
+  font-size:1.4rem;font-weight:900;color:var(--purple-lt);flex-shrink:0;
+}
+.cd-text{font-size:.82rem;color:var(--muted);line-height:1.5}
+.cd-text strong{color:var(--text)}
+
+/* Bet row */
+#bet-row{margin:.5rem 0 1rem}
+.bet-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:.6rem}
+.bet-header span{font-size:.78rem;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;font-weight:600}
+.bet-amt{font-size:1.4rem;font-weight:900;color:var(--gold)}
+.bet-amt em{font-size:.9rem;color:var(--muted);font-style:normal}
+input[type=range]{
+  width:100%;height:5px;border-radius:3px;background:rgba(139,92,246,.2);
+  outline:none;cursor:pointer;accent-color:var(--purple);margin-bottom:.6rem;display:block;
+}
+.presets{display:flex;gap:.4rem;flex-wrap:wrap}
+.preset{
+  flex:1;min-width:46px;padding:.35rem 0;font-size:.78rem;font-weight:600;
+  border-radius:.5rem;border:1px solid var(--border);background:transparent;
+  color:var(--muted);cursor:pointer;transition:all .15s;text-align:center;
+}
+.preset:hover{border-color:var(--purple-lt);color:var(--purple-lt)}
+
+/* Potential win */
+#pot-win{
+  text-align:center;font-size:.82rem;color:var(--muted);
+  margin-bottom:.9rem;padding:.5rem;
+  border-radius:.6rem;background:rgba(16,185,129,.05);border:1px solid rgba(16,185,129,.15);
+}
+#pot-win strong{color:var(--green);font-size:.95rem}
+
+/* Action button */
+#action-btn{width:100%;padding:.9rem;font-size:1.05rem;letter-spacing:.06em;border-radius:.9rem;text-transform:uppercase}
+
+/* Status */
+#status{min-height:1.6rem;text-align:center;font-size:.82rem;color:var(--muted);padding:.4rem;transition:color .2s}
+#status.err{color:var(--red)}
+#status.ok{color:var(--green)}
+#status.info{color:var(--purple-lt)}
+
+/* Stats */
+#stats{
+  display:grid;grid-template-columns:repeat(2,1fr);
+  gap:1px;width:100%;background:var(--border);
+  border-radius:1rem;overflow:hidden;border:1px solid var(--border);
+}
+.stat{display:flex;flex-direction:column;gap:.2rem;padding:.9rem 1.1rem;background:var(--card)}
+.stat-lbl{font-size:.65rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--muted)}
+.stat-val{font-size:1.05rem;font-weight:700;color:var(--text)}
+
+/* Result overlay */
+#result-overlay{
+  display:none;position:fixed;inset:0;z-index:100;
+  align-items:center;justify-content:center;
+  background:rgba(8,8,24,.88);backdrop-filter:blur(10px);
+}
+#result-overlay.show{display:flex}
+.result-card{
+  background:var(--card);border:1px solid var(--border);border-radius:1.75rem;
+  padding:2.25rem 2rem;text-align:center;max-width:360px;width:92%;
+  animation:popIn .4s cubic-bezier(.34,1.56,.64,1);
+}
+@keyframes popIn{from{transform:scale(.7);opacity:0} to{transform:scale(1);opacity:1}}
+.res-emoji{font-size:3.5rem;margin-bottom:.4rem}
+.res-title{font-size:2.2rem;font-weight:900;margin-bottom:.25rem}
+.res-title.win{color:var(--gold);text-shadow:0 0 20px rgba(245,158,11,.5)}
+.res-title.lose{color:var(--red)}
+.res-dice{font-size:2.2rem;margin:.75rem 0;letter-spacing:.1em}
+.res-detail{color:var(--muted);font-size:.82rem;margin-bottom:.75rem}
+.res-amount{font-size:1.6rem;font-weight:900;margin-bottom:1.25rem}
+.res-amount.win{color:var(--green)}
+.res-amount.lose{color:var(--muted)}
+
+/* Mnemonic modal */
+#mnemonic-modal{
+  display:none;position:fixed;inset:0;z-index:200;
+  align-items:center;justify-content:center;
+  background:rgba(0,0,0,.75);backdrop-filter:blur(8px);
+}
+#mnemonic-modal.show{display:flex}
+.modal-card{background:var(--card);border:1px solid var(--border);border-radius:1.25rem;padding:1.75rem;width:90%;max-width:460px}
+.modal-card h3{font-size:1.15rem;margin-bottom:.2rem}
+.modal-card p{color:var(--muted);font-size:.82rem;margin-bottom:.9rem}
+.warn-box{background:rgba(239,68,68,.08);border:1px solid rgba(239,68,68,.35);border-radius:.65rem;padding:.65rem .85rem;font-size:.78rem;color:#fca5a5;margin-bottom:.9rem}
+textarea{
+  width:100%;padding:.65rem .8rem;border-radius:.65rem;
+  border:1px solid var(--border);background:rgba(139,92,246,.04);
+  color:var(--text);font-family:monospace;font-size:.82rem;
+  resize:vertical;min-height:72px;margin-bottom:.9rem;
+}
+.modal-actions{display:flex;gap:.65rem;justify-content:flex-end}
+
+@media(max-width:380px){.die{width:78px;height:78px;border-radius:13px}.pip{width:12px;height:12px}}
+</style>
+</head>
+<body>
+
+<canvas id="stars-canvas"></canvas>
+<canvas id="confetti-canvas"></canvas>
+
+<header>
+  <div class="logo"><span class="logo-icon">🎲</span>Lucky Voi Roll</div>
+  <div class="net-badge" id="net-badge">Voi Mainnet</div>
+</header>
+
+<main>
+
+  <div id="config-banner">
+    <span>⚙️ Enter deployed App ID:</span>
+    <input type="number" id="app-id-input" placeholder="e.g. 12345678" />
+    <button class="btn btn-ghost" id="set-app-id-btn" style="padding:.35rem .8rem">Set</button>
+  </div>
+
+  <!-- Wallet -->
+  <div class="card">
+    <div id="wallet-section">
+      <div>
+        <div style="font-size:.65rem;text-transform:uppercase;letter-spacing:.07em;color:var(--muted);margin-bottom:.25rem">Wallet</div>
+        <div class="addr-text" id="addr-display">Not connected</div>
+      </div>
+      <div style="display:flex;gap:.5rem;align-items:center">
+        <span id="balance-pill"></span>
+        <button class="btn btn-purple" id="connect-btn">Connect Wallet</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Game -->
+  <div class="card">
+
+    <!-- Bet types -->
+    <div id="bet-types">
+      <button class="bt-btn" data-type="0">
+        <span class="bt-icon">📉</span>
+        <span class="bt-label">Under 7</span>
+        <span class="bt-payout">2×</span>
+        <span class="bt-range">Sum 2–6</span>
+      </button>
+      <button class="bt-btn lucky" data-type="1">
+        <span class="bt-icon">⭐</span>
+        <span class="bt-label">Lucky 7</span>
+        <span class="bt-payout">4×</span>
+        <span class="bt-range">Sum = 7</span>
+      </button>
+      <button class="bt-btn" data-type="2">
+        <span class="bt-icon">📈</span>
+        <span class="bt-label">Over 7</span>
+        <span class="bt-payout">2×</span>
+        <span class="bt-range">Sum 8–12</span>
+      </button>
+    </div>
+
+    <!-- Dice -->
+    <div id="dice-area">
+      <div class="die" id="die1"><div class="die-q">?</div></div>
+      <div class="die-sep">+</div>
+      <div class="die" id="die2"><div class="die-q">?</div></div>
+      <div class="die-sep">=</div>
+      <div class="die-total" id="die-total">?</div>
+    </div>
+
+    <!-- Countdown -->
+    <div id="countdown">
+      <div class="cd-circle" id="cd-num">2</div>
+      <div class="cd-text">
+        <strong>Commit confirmed!</strong><br>
+        Waiting <span id="blocks-left">2</span> more block(s) before reveal.
+      </div>
+    </div>
+
+    <!-- Bet amount -->
+    <div id="bet-row">
+      <div class="bet-header">
+        <span>Bet Amount</span>
+        <div class="bet-amt"><span id="bet-val">5</span> <em>VOI</em></div>
+      </div>
+      <input type="range" id="bet-slider" min="1" max="1000" step="1" value="5" />
+      <div class="presets">
+        <button class="preset" data-amt="1">1</button>
+        <button class="preset" data-amt="5">5</button>
+        <button class="preset" data-amt="10">10</button>
+        <button class="preset" data-amt="25">25</button>
+        <button class="preset" data-amt="50">50</button>
+        <button class="preset" data-amt="100">100</button>
+      </div>
+    </div>
+
+    <div id="pot-win">Potential win: <strong id="pot-val">20 VOI</strong></div>
+
+    <button class="btn btn-gold" id="action-btn">Connect Wallet</button>
+    <div id="status"></div>
+
+  </div>
+
+  <!-- Stats -->
+  <div id="stats">
+    <div class="stat"><div class="stat-lbl">House Balance</div><div class="stat-val" id="s-hb">—</div></div>
+    <div class="stat"><div class="stat-lbl">Total Games</div><div class="stat-val" id="s-tg">—</div></div>
+    <div class="stat"><div class="stat-lbl">Your Games</div><div class="stat-val" id="s-pg">—</div></div>
+    <div class="stat"><div class="stat-lbl">Your Winnings</div><div class="stat-val" id="s-pw">—</div></div>
+  </div>
+
+</main>
+
+<!-- Result overlay -->
+<div id="result-overlay">
+  <div class="result-card">
+    <div class="res-emoji" id="res-emoji">🎲</div>
+    <div class="res-title" id="res-title">Result</div>
+    <div class="res-dice" id="res-dice"></div>
+    <div class="res-detail" id="res-detail"></div>
+    <div class="res-amount" id="res-amount"></div>
+    <button class="btn btn-purple" id="res-close" style="width:100%;padding:.75rem">Play Again</button>
+  </div>
+</div>
+
+<!-- Mnemonic modal -->
+<div id="mnemonic-modal">
+  <div class="modal-card">
+    <h3>🔑 Connect with Mnemonic</h3>
+    <p>Development / testnet only.</p>
+    <div class="warn-box">⚠️ Never paste a real wallet mnemonic into a website. Use Kibisis for mainnet.</div>
+    <textarea id="mnemonic-input" placeholder="word1 word2 word3 … word25" rows="3"></textarea>
+    <div class="modal-actions">
+      <button class="btn btn-ghost" id="mn-cancel">Cancel</button>
+      <button class="btn btn-purple" id="mn-confirm">Connect</button>
+    </div>
+  </div>
+</div>
+
+<script src="https://unpkg.com/algosdk@2.7.0/dist/browser/algosdk.min.js"></script>
+<script>
+// ── CONFIG ────────────────────────────────────────────────────────────
+let APP_ID = 0; // Set after deploying
+
+const ALGOD_URL  = 'https://mainnet-api.voi.nodly.io';
+const ALGOD_PORT = 443;
+const MU         = 1_000_000;   // microVOI per VOI
+const PAYOUTS    = [2, 4, 2];   // indexed by betType
+const BET_NAMES  = ['Under 7', 'Lucky 7', 'Over 7'];
+const REVEAL_DELAY  = 2;
+const REVEAL_WINDOW = 30;
+
+// ── STATE ─────────────────────────────────────────────────────────────
+let algod;
+let acct          = null;   // { addr, sk? } — sk absent when using Kibisis
+let phase         = 'idle'; // idle | pending | ready | rolling
+let betType       = 1;      // default Lucky 7
+let betVOI        = 5;
+let commit        = null;   // { round, secret:number[], betType, betVOI }
+let gs            = {};     // decoded global state
+let ls            = null;   // decoded local state (null = not opted in)
+let rollTimers    = [];
+let pollTimer     = null;
+
+// ── ALGOD ─────────────────────────────────────────────────────────────
+function initAlgod() {
+  algod = new algosdk.Algodv2('', ALGOD_URL, ALGOD_PORT);
+}
+
+// ── UTILITIES ─────────────────────────────────────────────────────────
+function u8ToB64(bytes) {
+  let b = '';
+  bytes.forEach(x => b += String.fromCharCode(x));
+  return btoa(b);
+}
+
+function b64ToU8(b64) {
+  const bin = atob(b64);
+  return new Uint8Array(bin.split('').map(c => c.charCodeAt(0)));
+}
+
+function encodeUint64(n) {
+  const buf = new ArrayBuffer(8);
+  new DataView(buf).setBigUint64(0, BigInt(n), false);
+  return new Uint8Array(buf);
+}
+
+function decodeState(arr) {
+  const out = {};
+  for (const { key, value } of (arr || [])) {
+    const k = atob(key);
+    out[k] = value.type === 1 ? value.bytes : Number(value.uint);
+  }
+  return out;
+}
+
+function μ(v)  { return (v / MU).toFixed(2) + ' VOI'; }
+function μN(v) { return (v / MU).toFixed(2); }
+
+// ── DICE RENDERING ────────────────────────────────────────────────────
+const PIPS = {
+  1: [[50,50]],
+  2: [[27,27],[73,73]],
+  3: [[27,27],[50,50],[73,73]],
+  4: [[27,27],[73,27],[27,73],[73,73]],
+  5: [[27,27],[73,27],[50,50],[27,73],[73,73]],
+  6: [[27,25],[73,25],[27,50],[73,50],[27,75],[73,75]],
+};
+const EMOJI = ['','⚀','⚁','⚂','⚃','⚄','⚅'];
+
+function drawDie(el, val, cls = '') {
+  el.className = 'die' + (cls ? ' ' + cls : '');
+  if (!val) { el.innerHTML = '<div class="die-q">?</div>'; return; }
+  el.innerHTML = (PIPS[val] || []).map(([x,y]) =>
+    `<div class="pip" style="left:${x}%;top:${y}%"></div>`
+  ).join('');
+}
+
+function stopRoll() {
+  rollTimers.forEach(clearInterval);
+  rollTimers = [];
+}
+
+function startRoll(e1, e2) {
+  stopRoll();
+  const r = el => setInterval(() => drawDie(el, Math.ceil(Math.random()*6), 'rolling'), 80);
+  rollTimers.push(r(e1), r(e2));
+}
+
+function settleRoll(e1, e2, v1, v2, won) {
+  return new Promise(res => {
+    stopRoll();
+    let speed = 80, steps = 0;
+    const tick = () => {
+      drawDie(e1, Math.ceil(Math.random()*6), 'rolling');
+      drawDie(e2, Math.ceil(Math.random()*6), 'rolling');
+      steps++;
+      speed = Math.min(speed * 1.28, 500);
+      if (speed < 450) setTimeout(tick, speed);
+      else setTimeout(() => {
+        drawDie(e1, v1, won ? 'won' : 'lost');
+        drawDie(e2, v2, won ? 'won' : 'lost');
+        res();
+      }, 300);
+    };
+    setTimeout(tick, speed);
+  });
+}
+
+// ── STATUS / UI ───────────────────────────────────────────────────────
+function status(msg, cls = '') {
+  const el = document.getElementById('status');
+  el.textContent = msg;
+  el.className = cls;
+}
+
+function setAction(label, disabled = false, cls = 'btn-gold') {
+  const btn = document.getElementById('action-btn');
+  btn.textContent = label;
+  btn.disabled = disabled;
+  btn.className = `btn ${cls}`;
+}
+
+function updatePotential() {
+  document.getElementById('bet-val').textContent = betVOI;
+  document.getElementById('pot-val').textContent = (betVOI * PAYOUTS[betType]) + ' VOI';
+}
+
+function renderUI() {
+  const paused   = gs['pa'] === 1;
+  const optedIn  = ls !== null;
+  const minBet   = (Number(gs['mn']) || MU) / MU;
+  const maxBet   = (Number(gs['mx']) || 1_000_000_000) / MU;
+
+  const slider = document.getElementById('bet-slider');
+  slider.min = Math.ceil(minBet);
+  slider.max = Math.min(1000, Math.floor(maxBet));
+  if (betVOI < minBet) { betVOI = Math.ceil(minBet); slider.value = betVOI; }
+
+  document.getElementById('countdown').className = 'countdown' + (phase === 'pending' ? ' show' : '');
+
+  if (!acct) {
+    setAction('Connect Wallet', false, 'btn-purple');
+    status('Connect your wallet to play');
+    return;
+  }
+  if (!optedIn) {
+    setAction('Opt In to Play', false, 'btn-purple');
+    status('One-time opt-in required');
+    return;
+  }
+  if (paused) {
+    setAction('Game Paused', true, 'btn-ghost');
+    status('Contract is paused by the owner', 'err');
+    return;
+  }
+  if (phase === 'idle')    { setAction('🎲 Roll Dice', false, 'btn-gold'); status(''); }
+  if (phase === 'pending') { setAction('⏳ Waiting…', true,  'btn-ghost'); status('Commit confirmed — waiting for 2 blocks', 'info'); }
+  if (phase === 'ready')   { setAction('🔓 Reveal Result!', false, 'btn-purple'); status('Ready! Tap to reveal your roll', 'ok'); }
+  if (phase === 'rolling') { setAction('Rolling…', true, 'btn-ghost'); status(''); }
+}
+
+// ── STATE FETCH ───────────────────────────────────────────────────────
+async function fetchGlobal() {
+  if (!APP_ID) return;
+  try {
+    const info = await algod.getApplicationByID(APP_ID).do();
+    gs = decodeState(info.params['global-state']);
+    document.getElementById('s-hb').textContent = μ(Number(gs['hb']) || 0);
+    document.getElementById('s-tg').textContent = (Number(gs['tg']) || 0).toLocaleString();
+    document.getElementById('net-badge').textContent = gs['pa'] === 1 ? '⏸ Paused' : 'Voi Mainnet';
+  } catch(e) { console.warn('fetchGlobal', e); }
+  if (acct) await fetchLocal();
+  renderUI();
+}
+
+async function fetchLocal() {
+  if (!acct || !APP_ID) return;
+  try {
+    const info = await algod.accountInformation(acct.addr).do();
+    const bal  = Number(info.amount);
+    const pill = document.getElementById('balance-pill');
+    pill.textContent = μN(bal) + ' VOI';
+    pill.style.display = '';
+
+    const localEntry = (info['apps-local-state'] || []).find(a => a.id === APP_ID);
+    ls = localEntry ? decodeState(localEntry['key-value']) : null;
+
+    if (ls) {
+      document.getElementById('s-pg').textContent = Number(ls['pg'] || 0).toString();
+      document.getElementById('s-pw').textContent = μ(Number(ls['pw']) || 0);
+      // Restore commit from sessionStorage if on-chain slot is occupied
+      const cr = Number(ls['cr'] || 0);
+      if (cr > 0 && !commit) {
+        const saved = sessionStorage.getItem('lvr-commit');
+        if (saved) { commit = JSON.parse(saved); phase = 'pending'; startPoll(); }
+      }
+      if (cr === 0 && phase === 'pending') {
+        // Expired
+        commit = null; sessionStorage.removeItem('lvr-commit');
+        phase = 'idle'; clearInterval(pollTimer);
+        status('Reveal window expired — bet forfeited', 'err');
+      }
+    }
+  } catch(e) { console.warn('fetchLocal', e); }
+}
+
+// ── POLL FOR REVEAL READY ─────────────────────────────────────────────
+function startPoll() {
+  clearInterval(pollTimer);
+  pollTimer = setInterval(async () => {
+    if (!commit) { clearInterval(pollTimer); return; }
+    try {
+      const p = await algod.getTransactionParams().do();
+      const cur = p.firstRound - 1;
+      const left = Math.max(0, (commit.round + REVEAL_DELAY) - cur);
+      document.getElementById('blocks-left').textContent = left;
+      document.getElementById('cd-num').textContent = left;
+      if (cur >= commit.round + REVEAL_DELAY && cur <= commit.round + REVEAL_WINDOW) {
+        phase = 'ready'; clearInterval(pollTimer); renderUI();
+      } else if (cur > commit.round + REVEAL_WINDOW) {
+        commit = null; sessionStorage.removeItem('lvr-commit');
+        phase = 'idle'; clearInterval(pollTimer);
+        status('Reveal window expired — bet forfeited', 'err'); renderUI();
+      }
+    } catch(_) {}
+  }, 3500);
+}
+
+// ── SIGNING & SENDING ─────────────────────────────────────────────────
+async function signAndSend(txns) {
+  let txId;
+  if (acct.kibisis) {
+    const group = txns.map(t => ({
+      txn: u8ToB64(algosdk.encodeUnsignedTransaction(t)),
+      signers: [acct.addr],
+    }));
+    const result = await window.algorand.signTransactions([group]);
+    const signed  = result.stxns.map(s => b64ToU8(s));
+    const res = await algod.sendRawTransaction(signed).do();
+    txId = res.txId || res.txid;
+  } else {
+    const signed = txns.map(t => t.signTxn(acct.sk));
+    const res = await algod.sendRawTransaction(signed).do();
+    txId = res.txId || res.txid;
+  }
+  return txId;
+}
+
+// ── OPT IN ────────────────────────────────────────────────────────────
+async function doOptIn() {
+  try {
+    status('Opting in…', 'info'); setAction('Opting in…', true);
+    const params = await algod.getTransactionParams().do();
+    const txn = algosdk.makeApplicationOptInTxnFromObject({
+      from: acct.addr, appIndex: APP_ID, suggestedParams: params,
+    });
+    const txId = await signAndSend([txn]);
+    await algosdk.waitForConfirmation(algod, txId, 5);
+    status('✅ Opted in!', 'ok');
+    await fetchGlobal();
+  } catch(e) {
+    status('Opt-in failed: ' + (e.message || e), 'err');
+    renderUI();
+  }
+}
+
+// ── COMMIT ────────────────────────────────────────────────────────────
+async function doCommit() {
+  try {
+    const betMicro = BigInt(betVOI) * BigInt(MU);
+    const secret   = crypto.getRandomValues(new Uint8Array(32));
+    const hash     = new Uint8Array(await crypto.subtle.digest('SHA-256', secret));
+
+    status('Sending commit…', 'info');
+    phase = 'rolling'; renderUI();
+
+    const params = await algod.getTransactionParams().do();
+    const appAddr = algosdk.getApplicationAddress(APP_ID);
+
+    const payTxn = algosdk.makePaymentTxnWithSuggestedParamsFromObject({
+      from: acct.addr, to: appAddr, amount: betMicro,
+      suggestedParams: { ...params },
+    });
+    const callTxn = algosdk.makeApplicationCallTxnFromObject({
+      from: acct.addr, appIndex: APP_ID,
+      onComplete: algosdk.OnApplicationComplete.NoOpOC,
+      appArgs: [
+        new TextEncoder().encode('commit'),
+        encodeUint64(betType),
+        hash,
+      ],
+      suggestedParams: { ...params, fee: 1000, flatFee: true },
+    });
+    algosdk.assignGroupID([payTxn, callTxn]);
+
+    const txId = await signAndSend([payTxn, callTxn]);
+    status('Confirming…', 'info');
+    const confirmed = await algosdk.waitForConfirmation(algod, txId, 5);
+    const commitRound = confirmed['confirmed-round'];
+
+    commit = { round: commitRound, secret: Array.from(secret), betType, betVOI };
+    sessionStorage.setItem('lvr-commit', JSON.stringify(commit));
+    phase = 'pending';
+    startPoll();
+    renderUI();
+
+    // Spin the dice while waiting
+    startRoll(document.getElementById('die1'), document.getElementById('die2'));
+  } catch(e) {
+    console.error('commit', e);
+    status('Commit failed: ' + (e.message || e), 'err');
+    stopRoll();
+    drawDie(document.getElementById('die1'), null);
+    drawDie(document.getElementById('die2'), null);
+    phase = 'idle'; renderUI();
+  }
+}
+
+// ── REVEAL ────────────────────────────────────────────────────────────
+async function doReveal() {
+  if (!commit) return;
+  const storedBetType = commit.betType;
+  const storedBetVOI  = commit.betVOI;
+  try {
+    phase = 'rolling'; renderUI();
+    const d1 = document.getElementById('die1');
+    const d2 = document.getElementById('die2');
+    const totEl = document.getElementById('die-total');
+    totEl.className = 'die-total';
+    startRoll(d1, d2);
+
+    status('Sending reveal…', 'info');
+    const secret = new Uint8Array(commit.secret);
+    const params = await algod.getTransactionParams().do();
+    const callTxn = algosdk.makeApplicationCallTxnFromObject({
+      from: acct.addr, appIndex: APP_ID,
+      onComplete: algosdk.OnApplicationComplete.NoOpOC,
+      appArgs: [new TextEncoder().encode('reveal'), secret],
+      suggestedParams: { ...params, fee: 2000, flatFee: true },
+    });
+
+    const txId = await signAndSend([callTxn]);
+    status('Confirming…', 'info');
+    const result = await algosdk.waitForConfirmation(algod, txId, 5);
+
+    // Parse log: "LVR:" + die1(8) + die2(8) + total(8) + type(8) + won(8) + payout(8)
+    let v1=1, v2=1, total=2, won=false, payout=0;
+    for (const logB64 of (result.logs || [])) {
+      const log = b64ToU8(logB64);
+      if (log.length >= 52 && new TextDecoder().decode(log.slice(0,4)) === 'LVR:') {
+        const view = new DataView(log.buffer, log.byteOffset);
+        v1     = Number(view.getBigUint64(4));
+        v2     = Number(view.getBigUint64(12));
+        total  = Number(view.getBigUint64(20));
+        won    = Number(view.getBigUint64(36)) === 1;
+        payout = Number(view.getBigUint64(44));
+      }
+    }
+
+    await settleRoll(d1, d2, v1, v2, won);
+
+    totEl.textContent = total;
+    totEl.className = `die-total show ${won ? 'won' : 'lost'}`;
+
+    commit = null;
+    sessionStorage.removeItem('lvr-commit');
+    clearInterval(pollTimer);
+    phase = 'idle';
+
+    showResult(v1, v2, total, won, payout, storedBetType, storedBetVOI);
+    await fetchGlobal();
+  } catch(e) {
+    console.error('reveal', e);
+    stopRoll();
+    drawDie(document.getElementById('die1'), null);
+    drawDie(document.getElementById('die2'), null);
+    status('Reveal failed: ' + (e.message || e), 'err');
+    phase = 'ready'; renderUI();
+  }
+}
+
+// ── RESULT OVERLAY ────────────────────────────────────────────────────
+function showResult(v1, v2, total, won, payout, bType, bVOI) {
+  document.getElementById('res-emoji').textContent   = won ? '🎉' : '😢';
+  const title = document.getElementById('res-title');
+  title.textContent = won ? 'YOU WON!' : 'NEXT TIME!';
+  title.className   = 'res-title ' + (won ? 'win' : 'lose');
+  document.getElementById('res-dice').textContent    = `${EMOJI[v1]} + ${EMOJI[v2]} = ${total}`;
+  document.getElementById('res-detail').textContent  = `Bet: ${bVOI} VOI on ${BET_NAMES[bType]}`;
+  const amtEl = document.getElementById('res-amount');
+  amtEl.className   = 'res-amount ' + (won ? 'win' : 'lose');
+  amtEl.textContent = won ? `+${μN(payout)} VOI` : `-${bVOI} VOI`;
+  document.getElementById('result-overlay').classList.add('show');
+  if (won) launchConfetti();
+}
+
+// ── CONFETTI ──────────────────────────────────────────────────────────
+function launchConfetti() {
+  const canvas = document.getElementById('confetti-canvas');
+  canvas.width = innerWidth; canvas.height = innerHeight;
+  const ctx = canvas.getContext('2d');
+  const colors = ['#7c3aed','#f59e0b','#10b981','#ec4899','#3b82f6','#f97316'];
+  const parts = Array.from({length:130}, () => ({
+    x: Math.random()*canvas.width, y: -20,
+    vx: (Math.random()-.5)*7, vy: Math.random()*4+2,
+    r: Math.random()*6+3, c: colors[Math.random()*colors.length|0],
+    rot: Math.random()*Math.PI*2, vr: (Math.random()-.5)*.2,
+    sq: Math.random()>.5,
+  }));
+  let frame = 0;
+  const anim = () => {
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+    parts.forEach(p => {
+      p.x+=p.vx; p.y+=p.vy; p.vy+=.1; p.rot+=p.vr;
+      ctx.save(); ctx.translate(p.x,p.y); ctx.rotate(p.rot);
+      ctx.fillStyle=p.c; ctx.globalAlpha=Math.max(0,1-frame/180);
+      if (p.sq) ctx.fillRect(-p.r,-p.r/2,p.r*2,p.r);
+      else { ctx.beginPath(); ctx.arc(0,0,p.r/2,0,Math.PI*2); ctx.fill(); }
+      ctx.restore();
+    });
+    if (++frame < 200) requestAnimationFrame(anim);
+    else ctx.clearRect(0,0,canvas.width,canvas.height);
+  };
+  anim();
+}
+
+// ── STARS ─────────────────────────────────────────────────────────────
+function initStars() {
+  const canvas = document.getElementById('stars-canvas');
+  const ctx    = canvas.getContext('2d');
+  let stars    = [];
+  const resize = () => {
+    canvas.width=innerWidth; canvas.height=innerHeight;
+    stars = Array.from({length:160}, () => ({
+      x: Math.random()*canvas.width, y: Math.random()*canvas.height,
+      r: Math.random()*1.4+.2, a: Math.random(), s: Math.random()*.004+.001,
+    }));
+  };
+  const draw = () => {
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+    stars.forEach(s => {
+      s.a+=s.s; if(s.a>1) s.s=-Math.abs(s.s); if(s.a<0) s.s=Math.abs(s.s);
+      ctx.beginPath(); ctx.arc(s.x,s.y,s.r,0,Math.PI*2);
+      ctx.fillStyle=`rgba(167,139,250,${s.a*.65})`; ctx.fill();
+    });
+    requestAnimationFrame(draw);
+  };
+  window.addEventListener('resize', resize);
+  resize(); draw();
+}
+
+// ── WALLET ────────────────────────────────────────────────────────────
+async function connectKibisis() {
+  const p = await algod.getTransactionParams().do();
+  const ghB64 = u8ToB64(p.genesisHash);
+  const result = await window.algorand.enable({ genesisHash: ghB64 });
+  return result.accounts[0].address;
+}
+
+async function handleConnect() {
+  if (acct) {
+    // Disconnect
+    acct=null; ls=null; phase='idle'; commit=null;
+    sessionStorage.removeItem('lvr-commit');
+    clearInterval(pollTimer); stopRoll();
+    document.getElementById('addr-display').textContent='Not connected';
+    document.getElementById('balance-pill').style.display='none';
+    document.getElementById('connect-btn').textContent='Connect Wallet';
+    document.getElementById('connect-btn').className='btn btn-purple';
+    document.getElementById('s-pg').textContent='—';
+    document.getElementById('s-pw').textContent='—';
+    drawDie(document.getElementById('die1'), null);
+    drawDie(document.getElementById('die2'), null);
+    renderUI(); return;
+  }
+  if (window.algorand) {
+    try {
+      const addr = await connectKibisis();
+      acct = { addr, kibisis: true };
+    } catch(e) {
+      if (e.code === 4001) { status('Connection rejected', 'err'); return; }
+    }
+  }
+  if (!acct) { document.getElementById('mnemonic-modal').classList.add('show'); return; }
+  finishConnect();
+}
+
+function finishConnect() {
+  if (!acct) return;
+  document.getElementById('addr-display').textContent =
+    acct.addr.slice(0,8)+'…'+acct.addr.slice(-5);
+  document.getElementById('connect-btn').textContent = 'Disconnect';
+  document.getElementById('connect-btn').className   = 'btn btn-ghost';
+  const saved = sessionStorage.getItem('lvr-commit');
+  if (saved) { commit = JSON.parse(saved); phase='pending'; startPoll(); }
+  fetchGlobal();
+}
+
+// ── ACTION HANDLER ────────────────────────────────────────────────────
+function handleAction() {
+  if (!acct)            { handleConnect(); return; }
+  if (!ls)              { doOptIn(); return; }
+  if (phase==='idle')   { doCommit(); return; }
+  if (phase==='ready')  { doReveal(); return; }
+}
+
+// ── INIT ──────────────────────────────────────────────────────────────
+function init() {
+  initAlgod();
+  initStars();
+
+  drawDie(document.getElementById('die1'), null);
+  drawDie(document.getElementById('die2'), null);
+
+  if (!APP_ID) document.getElementById('config-banner').style.display='flex';
+
+  // Bet type buttons
+  document.querySelectorAll('.bt-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.bt-btn').forEach(b=>b.classList.remove('selected'));
+      btn.classList.add('selected');
+      betType = parseInt(btn.dataset.type);
+      updatePotential();
+    });
+  });
+  document.querySelector('[data-type="1"]').classList.add('selected');
+
+  // Bet slider
+  document.getElementById('bet-slider').addEventListener('input', e => {
+    betVOI = parseInt(e.target.value); updatePotential();
+  });
+
+  // Presets
+  document.querySelectorAll('.preset').forEach(btn => {
+    btn.addEventListener('click', () => {
+      betVOI = parseInt(btn.dataset.amt);
+      document.getElementById('bet-slider').value = betVOI;
+      updatePotential();
+    });
+  });
+
+  document.getElementById('connect-btn').addEventListener('click', handleConnect);
+  document.getElementById('action-btn').addEventListener('click', handleAction);
+  document.getElementById('res-close').addEventListener('click', () => {
+    document.getElementById('result-overlay').classList.remove('show');
+  });
+  document.getElementById('mn-cancel').addEventListener('click', () => {
+    document.getElementById('mnemonic-modal').classList.remove('show');
+  });
+  document.getElementById('mn-confirm').addEventListener('click', () => {
+    const m = document.getElementById('mnemonic-input').value.trim();
+    try {
+      const kp = algosdk.mnemonicToSecretKey(m);
+      acct = { addr: kp.addr, sk: kp.sk };
+      document.getElementById('mnemonic-modal').classList.remove('show');
+      document.getElementById('mnemonic-input').value = '';
+      finishConnect();
+    } catch(e) { alert('Invalid mnemonic: ' + e.message); }
+  });
+  document.getElementById('set-app-id-btn').addEventListener('click', () => {
+    const v = parseInt(document.getElementById('app-id-input').value);
+    if (v > 0) {
+      APP_ID = v;
+      document.getElementById('config-banner').style.display='none';
+      fetchGlobal();
+    }
+  });
+
+  updatePotential();
+  renderUI();
+  fetchGlobal();
+  setInterval(fetchGlobal, 15000);
+}
+
+document.addEventListener('DOMContentLoaded', init);
+</script>
+</body>
+</html>
