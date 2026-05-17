@@ -67,6 +67,17 @@ async function main() {
   const clearPath    = path.join(artifactsDir, 'LuckyVoiRoll.clear.teal');
   const arc32Path    = path.join(artifactsDir, 'LuckyVoiRoll.arc32.json');
 
+  // Idempotency guard: abort if a deployment record already exists for this network
+  const deployInfoPath = path.join(artifactsDir, `deployment.${netArg}.json`);
+  if (fs.existsSync(deployInfoPath)) {
+    const existing = JSON.parse(fs.readFileSync(deployInfoPath, 'utf8'));
+    console.error(
+      `Already deployed on ${net.name}: App ID ${existing.appId} (${existing.deployedAt}).\n` +
+      `Delete artifacts/deployment.${netArg}.json to force a fresh deploy.`,
+    );
+    process.exit(1);
+  }
+
   if (!fs.existsSync(approvalPath)) {
     console.error('TEAL not found. Run: npm run compile');
     process.exit(1);

@@ -1,0 +1,11 @@
+{
+  "name": "lucky-voi-roll",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "compile": "npm run compile --prefix contract",
+    "deploy:testnet": "npm run deploy:testnet --prefix contract",
+    "deploy:mainnet": "npm run deploy:mainnet --prefix contract"
+  }
+}
