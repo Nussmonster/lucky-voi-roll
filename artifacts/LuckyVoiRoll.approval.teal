@@ -1,0 +1,765 @@
+#pragma version 8
+txn ApplicationID
+int 0
+==
+bnz main_l34
+txna ApplicationArgs 0
+byte "fundHouse"
+==
+bnz main_l33
+txna ApplicationArgs 0
+byte "commit"
+==
+bnz main_l32
+txna ApplicationArgs 0
+byte "reveal"
+==
+bnz main_l19
+txna ApplicationArgs 0
+byte "withdraw"
+==
+bnz main_l18
+txna ApplicationArgs 0
+byte "emergencyWithdraw"
+==
+bnz main_l17
+txna ApplicationArgs 0
+byte "pause"
+==
+bnz main_l16
+txna ApplicationArgs 0
+byte "unpause"
+==
+bnz main_l15
+txna ApplicationArgs 0
+byte "setBetLimits"
+==
+bnz main_l14
+txna ApplicationArgs 0
+byte "transferOwnership"
+==
+bnz main_l13
+txna ApplicationArgs 0
+byte "acceptOwnership"
+==
+bnz main_l12
+err
+main_l12:
+byte "po"
+app_global_get
+global ZeroAddress
+!=
+// No pending transfer
+assert
+txn Sender
+byte "po"
+app_global_get
+==
+// Not pending owner
+assert
+byte "ow"
+byte "po"
+app_global_get
+app_global_put
+byte "po"
+global ZeroAddress
+app_global_put
+byte "OWNER:"
+txn Sender
+concat
+log
+int 1
+return
+main_l13:
+txn Sender
+byte "ow"
+app_global_get
+==
+// Not owner
+assert
+txna ApplicationArgs 1
+len
+int 32
+==
+// Invalid address length
+assert
+txna ApplicationArgs 1
+global ZeroAddress
+!=
+// Zero address
+assert
+txna ApplicationArgs 1
+byte "ow"
+app_global_get
+!=
+// Already owner
+assert
+byte "po"
+txna ApplicationArgs 1
+app_global_put
+byte "TRANSFER:"
+txna ApplicationArgs 1
+concat
+log
+int 1
+return
+main_l14:
+txn Sender
+byte "ow"
+app_global_get
+==
+// Not owner
+assert
+txna ApplicationArgs 1
+btoi
+int 0
+>
+// Min must be > 0
+assert
+txna ApplicationArgs 2
+btoi
+txna ApplicationArgs 1
+btoi
+>=
+// Max must be >= min
+assert
+txna ApplicationArgs 2
+btoi
+int 10000000000
+<=
+// Exceeds 10,000 VOI cap
+assert
+txna ApplicationArgs 2
+btoi
+int 4
+*
+int 1000000
++
+byte "hb"
+app_global_get
+<=
+// House pool too low for new limits
+assert
+byte "mn"
+txna ApplicationArgs 1
+btoi
+app_global_put
+byte "mx"
+txna ApplicationArgs 2
+btoi
+app_global_put
+byte "LIMITS:"
+txna ApplicationArgs 1
+btoi
+itob
+concat
+txna ApplicationArgs 2
+btoi
+itob
+concat
+log
+int 1
+return
+main_l15:
+txn Sender
+byte "ow"
+app_global_get
+==
+// Not owner
+assert
+byte "pa"
+int 0
+app_global_put
+byte "UNPAUSE"
+log
+int 1
+return
+main_l16:
+txn Sender
+byte "ow"
+app_global_get
+==
+// Not owner
+assert
+byte "pa"
+int 1
+app_global_put
+byte "PAUSE"
+log
+int 1
+return
+main_l17:
+txn Sender
+byte "ow"
+app_global_get
+==
+// Not owner
+assert
+byte "pa"
+app_global_get
+int 1
+==
+// Must pause first
+assert
+byte "hb"
+app_global_get
+store 12
+load 12
+int 0
+>
+// Nothing to withdraw
+assert
+byte "hb"
+int 0
+app_global_put
+itxn_begin
+int pay
+itxn_field TypeEnum
+byte "ow"
+app_global_get
+itxn_field Receiver
+load 12
+itxn_field Amount
+byte "LuckyVoiRoll emergency withdrawal"
+itxn_field Note
+int 0
+itxn_field Fee
+itxn_submit
+byte "EMERGENCY:"
+load 12
+itob
+concat
+log
+int 1
+return
+main_l18:
+txn Sender
+byte "ow"
+app_global_get
+==
+// Not owner
+assert
+txna ApplicationArgs 1
+btoi
+byte "hb"
+app_global_get
+<=
+// Amount exceeds balance
+assert
+byte "hb"
+app_global_get
+txna ApplicationArgs 1
+btoi
+-
+byte "mx"
+app_global_get
+int 4
+*
+>=
+// Reserve too low
+assert
+byte "hb"
+byte "hb"
+app_global_get
+txna ApplicationArgs 1
+btoi
+-
+app_global_put
+itxn_begin
+int pay
+itxn_field TypeEnum
+byte "ow"
+app_global_get
+itxn_field Receiver
+txna ApplicationArgs 1
+btoi
+itxn_field Amount
+byte "LuckyVoiRoll withdrawal"
+itxn_field Note
+int 0
+itxn_field Fee
+itxn_submit
+byte "WITHDRAW:"
+txna ApplicationArgs 1
+btoi
+itob
+concat
+log
+int 1
+return
+main_l19:
+int 0
+global CurrentApplicationID
+app_opted_in
+// Not opted in
+assert
+txn Sender
+byte "cr"
+app_local_get
+store 1
+load 1
+int 0
+!=
+// No active commit
+assert
+global Round
+load 1
+int 2
++
+>=
+// Too early to reveal
+assert
+global Round
+load 1
+int 30
++
+<=
+// Reveal window expired
+assert
+txna ApplicationArgs 1
+sha256
+txn Sender
+byte "ch"
+app_local_get
+==
+// Invalid secret
+assert
+txn Sender
+byte "cb"
+app_local_get
+store 2
+txn Sender
+byte "ct"
+app_local_get
+store 3
+byte "nc"
+app_global_get
+int 1
++
+store 4
+byte "nc"
+load 4
+app_global_put
+load 1
+block BlkSeed
+txna ApplicationArgs 1
+concat
+load 4
+itob
+concat
+sha256
+store 5
+load 5
+txn Sender
+concat
+load 2
+itob
+concat
+sha256
+store 6
+load 5
+extract 0 8
+btoi
+int 6
+%
+int 1
++
+store 7
+load 6
+extract 0 8
+btoi
+int 6
+%
+int 1
++
+store 8
+load 7
+load 8
++
+store 9
+int 0
+store 10
+int 0
+store 11
+load 3
+int 0
+==
+load 9
+int 7
+<
+&&
+bnz main_l31
+load 3
+int 1
+==
+load 9
+int 7
+==
+&&
+bnz main_l30
+load 3
+int 2
+==
+load 9
+int 7
+>
+&&
+bnz main_l29
+main_l22:
+byte "tg"
+byte "tg"
+app_global_get
+int 1
++
+app_global_put
+load 10
+int 1
+==
+bnz main_l28
+main_l23:
+txn Sender
+byte "pg"
+txn Sender
+byte "pg"
+app_local_get
+int 1
++
+app_local_put
+load 10
+int 1
+==
+bnz main_l27
+main_l24:
+txn Sender
+byte "cr"
+int 0
+app_local_put
+txn Sender
+byte "cb"
+int 0
+app_local_put
+txn Sender
+byte "ct"
+int 0
+app_local_put
+txn Sender
+byte "ch"
+byte ""
+app_local_put
+byte "LVR:"
+load 7
+itob
+concat
+load 8
+itob
+concat
+load 9
+itob
+concat
+load 3
+itob
+concat
+load 10
+itob
+concat
+load 11
+itob
+concat
+log
+load 10
+int 1
+==
+bnz main_l26
+main_l25:
+int 1
+return
+main_l26:
+itxn_begin
+int pay
+itxn_field TypeEnum
+txn Sender
+itxn_field Receiver
+load 11
+itxn_field Amount
+byte "LuckyVoiRoll payout"
+itxn_field Note
+int 0
+itxn_field Fee
+itxn_submit
+b main_l25
+main_l27:
+txn Sender
+byte "pw"
+txn Sender
+byte "pw"
+app_local_get
+load 11
++
+app_local_put
+b main_l24
+main_l28:
+byte "hb"
+byte "hb"
+app_global_get
+load 11
+-
+app_global_put
+byte "tp"
+byte "tp"
+app_global_get
+load 11
++
+app_global_put
+b main_l23
+main_l29:
+int 1
+store 10
+load 2
+int 2
+*
+store 11
+b main_l22
+main_l30:
+int 1
+store 10
+load 2
+int 4
+*
+store 11
+b main_l22
+main_l31:
+int 1
+store 10
+load 2
+int 2
+*
+store 11
+b main_l22
+main_l32:
+int 0
+global CurrentApplicationID
+app_opted_in
+// Must opt in first
+assert
+global GroupSize
+int 2
+==
+assert
+txn GroupIndex
+int 1
+==
+assert
+gtxn 0 TypeEnum
+int pay
+==
+assert
+gtxn 0 Receiver
+global CurrentApplicationAddress
+==
+assert
+gtxn 0 Sender
+txn Sender
+==
+assert
+gtxn 0 RekeyTo
+global ZeroAddress
+==
+// Rekey not allowed
+assert
+gtxn 0 CloseRemainderTo
+global ZeroAddress
+==
+// Close not allowed
+assert
+byte "pa"
+app_global_get
+int 0
+==
+// Contract is paused
+assert
+txna ApplicationArgs 1
+btoi
+int 0
+==
+txna ApplicationArgs 1
+btoi
+int 1
+==
+||
+txna ApplicationArgs 1
+btoi
+int 2
+==
+||
+// Invalid bet type
+assert
+txna ApplicationArgs 2
+len
+int 32
+==
+// Commitment must be 32 bytes
+assert
+txn Sender
+byte "cr"
+app_local_get
+store 0
+load 0
+int 0
+==
+global Round
+load 0
+int 30
++
+>
+||
+// Commit already pending
+assert
+gtxn 0 Amount
+byte "mn"
+app_global_get
+>=
+// Bet too small
+assert
+gtxn 0 Amount
+byte "mx"
+app_global_get
+<=
+// Bet too large
+assert
+byte "hb"
+app_global_get
+gtxn 0 Amount
+int 4
+*
+int 1000000
++
+>=
+// House funds insufficient
+assert
+byte "hb"
+byte "hb"
+app_global_get
+gtxn 0 Amount
++
+app_global_put
+byte "tw"
+byte "tw"
+app_global_get
+gtxn 0 Amount
++
+app_global_put
+txn Sender
+byte "ch"
+txna ApplicationArgs 2
+app_local_put
+txn Sender
+byte "cr"
+global Round
+app_local_put
+txn Sender
+byte "cb"
+gtxn 0 Amount
+app_local_put
+txn Sender
+byte "ct"
+txna ApplicationArgs 1
+btoi
+app_local_put
+byte "COMMIT:"
+gtxn 0 Amount
+itob
+concat
+txna ApplicationArgs 1
+btoi
+itob
+concat
+log
+int 1
+return
+main_l33:
+txn Sender
+byte "ow"
+app_global_get
+==
+// Not owner
+assert
+global GroupSize
+int 2
+==
+assert
+txn GroupIndex
+int 1
+==
+assert
+gtxn 0 TypeEnum
+int pay
+==
+assert
+gtxn 0 Receiver
+global CurrentApplicationAddress
+==
+assert
+gtxn 0 Sender
+txn Sender
+==
+assert
+gtxn 0 Amount
+int 0
+>
+assert
+gtxn 0 RekeyTo
+global ZeroAddress
+==
+// Rekey not allowed
+assert
+gtxn 0 CloseRemainderTo
+global ZeroAddress
+==
+// Close not allowed
+assert
+byte "hb"
+byte "hb"
+app_global_get
+gtxn 0 Amount
++
+app_global_put
+byte "FUND:"
+gtxn 0 Amount
+itob
+concat
+log
+int 1
+return
+main_l34:
+byte "ow"
+txn Sender
+app_global_put
+byte "po"
+global ZeroAddress
+app_global_put
+byte "pa"
+int 0
+app_global_put
+byte "mn"
+int 1000000
+app_global_put
+byte "mx"
+int 1000000000
+app_global_put
+byte "hb"
+int 0
+app_global_put
+byte "tg"
+int 0
+app_global_put
+byte "tw"
+int 0
+app_global_put
+byte "tp"
+int 0
+app_global_put
+byte "nc"
+int 0
+app_global_put
+int 1
+return
