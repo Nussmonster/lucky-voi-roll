@@ -64,7 +64,7 @@ async function main() {
   const clearSource    = fs.readFileSync(clearPath, 'utf8');
 
   // Read schema from ARC-32 artifact
-  let numGlobalInts = 8, numGlobalByteSlices = 2;
+  let numGlobalInts = 9, numGlobalByteSlices = 2;
   let numLocalInts  = 5, numLocalByteSlices  = 1;
   if (fs.existsSync(arc32Path)) {
     const arc32 = JSON.parse(fs.readFileSync(arc32Path, 'utf8'));
@@ -89,7 +89,7 @@ async function main() {
   console.log('Balance: ', (Number(balance) / 1e6).toFixed(3), 'VOI');
   console.log('Seed:    ', (Number(HOUSE_SEED_MICRO_VOI) / 1e6), 'VOI');
 
-  if (balance < HOUSE_SEED_MICRO_VOI + 2_000_000n) {
+  if (balance < HOUSE_SEED_MICRO_VOI + MIN_BALANCE_BUFFER + 2_000_000n) {
     console.error('Insufficient balance. Need seed + ~2 VOI for fees + min balance.');
     process.exit(1);
   }
@@ -133,7 +133,7 @@ async function main() {
   // + numGlobalBSlices × 50_000  = ~2 × 50_000 = 100_000
   // Total ≈ 456_500 µVOI, round up to 600_000 for safety
   const MIN_BALANCE_BUFFER = 600_000n;
-  const totalFund = HOUSE_SEED_MICRO_VOI + MIN_BALANCE_BUFFER;
+  const totalFund = MIN_BALANCE_BUFFER;
 
   const p2 = await algod.getTransactionParams().do();
   const fundTxn = algosdk.makePaymentTxnWithSuggestedParamsFromObject({

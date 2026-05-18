@@ -2,49 +2,53 @@
 txn ApplicationID
 int 0
 ==
-bnz main_l34
+bnz main_l47
+txn OnCompletion
+int OptIn
+==
+bnz main_l46
 txna ApplicationArgs 0
 byte "fundHouse"
 ==
-bnz main_l33
+bnz main_l45
 txna ApplicationArgs 0
 byte "commit"
 ==
-bnz main_l32
+bnz main_l36
 txna ApplicationArgs 0
 byte "reveal"
 ==
-bnz main_l19
+bnz main_l20
 txna ApplicationArgs 0
 byte "withdraw"
 ==
-bnz main_l18
+bnz main_l19
 txna ApplicationArgs 0
 byte "emergencyWithdraw"
 ==
-bnz main_l17
+bnz main_l18
 txna ApplicationArgs 0
 byte "pause"
 ==
-bnz main_l16
+bnz main_l17
 txna ApplicationArgs 0
 byte "unpause"
 ==
-bnz main_l15
+bnz main_l16
 txna ApplicationArgs 0
 byte "setBetLimits"
 ==
-bnz main_l14
+bnz main_l15
 txna ApplicationArgs 0
 byte "transferOwnership"
 ==
-bnz main_l13
+bnz main_l14
 txna ApplicationArgs 0
 byte "acceptOwnership"
 ==
-bnz main_l12
+bnz main_l13
 err
-main_l12:
+main_l13:
 byte "po"
 app_global_get
 global ZeroAddress
@@ -70,7 +74,7 @@ concat
 log
 int 1
 return
-main_l13:
+main_l14:
 txn Sender
 byte "ow"
 app_global_get
@@ -103,7 +107,7 @@ concat
 log
 int 1
 return
-main_l14:
+main_l15:
 txn Sender
 byte "ow"
 app_global_get
@@ -160,7 +164,7 @@ concat
 log
 int 1
 return
-main_l15:
+main_l16:
 txn Sender
 byte "ow"
 app_global_get
@@ -174,7 +178,7 @@ byte "UNPAUSE"
 log
 int 1
 return
-main_l16:
+main_l17:
 txn Sender
 byte "ow"
 app_global_get
@@ -188,7 +192,7 @@ byte "PAUSE"
 log
 int 1
 return
-main_l17:
+main_l18:
 txn Sender
 byte "ow"
 app_global_get
@@ -203,8 +207,8 @@ int 1
 assert
 byte "hb"
 app_global_get
-store 12
-load 12
+store 17
+load 17
 int 0
 >
 // Nothing to withdraw
@@ -218,7 +222,7 @@ itxn_field TypeEnum
 byte "ow"
 app_global_get
 itxn_field Receiver
-load 12
+load 17
 itxn_field Amount
 byte "LuckyVoiRoll emergency withdrawal"
 itxn_field Note
@@ -226,13 +230,13 @@ int 0
 itxn_field Fee
 itxn_submit
 byte "EMERGENCY:"
-load 12
+load 17
 itob
 concat
 log
 int 1
 return
-main_l18:
+main_l19:
 txn Sender
 byte "ow"
 app_global_get
@@ -287,7 +291,7 @@ concat
 log
 int 1
 return
-main_l19:
+main_l20:
 int 0
 global CurrentApplicationID
 app_opted_in
@@ -296,21 +300,21 @@ assert
 txn Sender
 byte "cr"
 app_local_get
-store 1
-load 1
+store 5
+load 5
 int 0
 !=
 // No active commit
 assert
 global Round
-load 1
+load 5
 int 2
 +
 >=
 // Too early to reveal
 assert
 global Round
-load 1
+load 5
 int 30
 +
 <=
@@ -327,96 +331,96 @@ assert
 txn Sender
 byte "cb"
 app_local_get
-store 2
+store 6
 txn Sender
 byte "ct"
 app_local_get
-store 3
+store 7
 byte "nc"
 app_global_get
-int 1
-+
-store 4
-byte "nc"
-load 4
-app_global_put
-load 1
-block BlkSeed
-txna ApplicationArgs 1
-concat
-load 4
-itob
-concat
-sha256
-store 5
-load 5
-txn Sender
-concat
-load 2
-itob
-concat
-sha256
-store 6
-load 5
-extract 0 8
-btoi
-int 6
-%
-int 1
-+
-store 7
-load 6
-extract 0 8
-btoi
-int 6
-%
 int 1
 +
 store 8
-load 7
+byte "nc"
 load 8
-+
+app_global_put
+load 5
+block BlkSeed
+txna ApplicationArgs 1
+concat
+load 8
+itob
+concat
+sha256
 store 9
-int 0
+load 9
+txn Sender
+concat
+load 6
+itob
+concat
+sha256
 store 10
-int 0
+load 9
+extract 0 8
+btoi
+int 6
+%
+int 1
++
 store 11
-load 3
+load 10
+extract 0 8
+btoi
+int 6
+%
+int 1
++
+store 12
+load 11
+load 12
++
+store 13
+int 0
+store 14
+int 0
+store 15
+load 7
 int 0
 ==
-load 9
+load 13
 int 7
 <
 &&
-bnz main_l31
-load 3
+bnz main_l35
+load 7
 int 1
 ==
-load 9
+load 13
 int 7
 ==
 &&
-bnz main_l30
-load 3
+bnz main_l34
+load 7
 int 2
 ==
-load 9
+load 13
 int 7
 >
 &&
-bnz main_l29
-main_l22:
+bnz main_l33
+main_l23:
 byte "tg"
 byte "tg"
 app_global_get
 int 1
 +
 app_global_put
-load 10
+load 14
 int 1
 ==
-bnz main_l28
-main_l23:
+bnz main_l32
+main_l24:
 txn Sender
 byte "pg"
 txn Sender
@@ -425,11 +429,26 @@ app_local_get
 int 1
 +
 app_local_put
-load 10
+load 14
 int 1
 ==
-bnz main_l27
-main_l24:
+bnz main_l31
+main_l25:
+load 7
+int 1
+==
+bnz main_l30
+load 6
+int 2
+*
+main_l27:
+store 16
+byte "pe"
+byte "pe"
+app_global_get
+load 16
+-
+app_global_put
 txn Sender
 byte "cr"
 int 0
@@ -447,95 +466,100 @@ byte "ch"
 byte ""
 app_local_put
 byte "LVR:"
-load 7
-itob
-concat
-load 8
-itob
-concat
-load 9
-itob
-concat
-load 3
-itob
-concat
-load 10
-itob
-concat
 load 11
 itob
 concat
+load 12
+itob
+concat
+load 13
+itob
+concat
+load 7
+itob
+concat
+load 14
+itob
+concat
+load 15
+itob
+concat
 log
-load 10
+load 14
 int 1
 ==
-bnz main_l26
-main_l25:
+bnz main_l29
+main_l28:
 int 1
 return
-main_l26:
+main_l29:
 itxn_begin
 int pay
 itxn_field TypeEnum
 txn Sender
 itxn_field Receiver
-load 11
+load 15
 itxn_field Amount
 byte "LuckyVoiRoll payout"
 itxn_field Note
 int 0
 itxn_field Fee
 itxn_submit
-b main_l25
-main_l27:
+b main_l28
+main_l30:
+load 6
+int 4
+*
+b main_l27
+main_l31:
 txn Sender
 byte "pw"
 txn Sender
 byte "pw"
 app_local_get
-load 11
+load 15
 +
 app_local_put
-b main_l24
-main_l28:
+b main_l25
+main_l32:
 byte "hb"
 byte "hb"
 app_global_get
-load 11
+load 15
 -
 app_global_put
 byte "tp"
 byte "tp"
 app_global_get
-load 11
+load 15
 +
 app_global_put
-b main_l23
-main_l29:
+b main_l24
+main_l33:
 int 1
-store 10
-load 2
+store 14
+load 6
 int 2
 *
-store 11
-b main_l22
-main_l30:
+store 15
+b main_l23
+main_l34:
 int 1
-store 10
-load 2
+store 14
+load 6
 int 4
 *
-store 11
-b main_l22
-main_l31:
+store 15
+b main_l23
+main_l35:
 int 1
-store 10
-load 2
+store 14
+load 6
 int 2
 *
-store 11
-b main_l22
-main_l32:
+store 15
+b main_l23
+main_l36:
 int 0
 global CurrentApplicationID
 app_opted_in
@@ -626,16 +650,38 @@ app_global_get
 <=
 // Bet too large
 assert
+txna ApplicationArgs 1
+btoi
+int 1
+==
+bnz main_l44
+gtxn 0 Amount
+int 2
+*
+main_l38:
+store 1
 byte "hb"
 app_global_get
-gtxn 0 Amount
-int 4
-*
+byte "pe"
+app_global_get
+load 1
++
 int 1000000
 +
 >=
 // House funds insufficient
 assert
+load 0
+int 0
+!=
+global Round
+load 0
+int 30
++
+>
+&&
+bnz main_l40
+main_l39:
 byte "hb"
 byte "hb"
 app_global_get
@@ -646,6 +692,12 @@ byte "tw"
 byte "tw"
 app_global_get
 gtxn 0 Amount
++
+app_global_put
+byte "pe"
+byte "pe"
+app_global_get
+load 1
 +
 app_global_put
 txn Sender
@@ -676,7 +728,42 @@ concat
 log
 int 1
 return
-main_l33:
+main_l40:
+txn Sender
+byte "ct"
+app_local_get
+store 2
+txn Sender
+byte "cb"
+app_local_get
+store 3
+load 2
+int 1
+==
+bnz main_l43
+load 3
+int 2
+*
+main_l42:
+store 4
+byte "pe"
+byte "pe"
+app_global_get
+load 4
+-
+app_global_put
+b main_l39
+main_l43:
+load 3
+int 4
+*
+b main_l42
+main_l44:
+gtxn 0 Amount
+int 4
+*
+b main_l38
+main_l45:
 txn Sender
 byte "ow"
 app_global_get
@@ -730,7 +817,34 @@ concat
 log
 int 1
 return
-main_l34:
+main_l46:
+txn Sender
+byte "pg"
+int 0
+app_local_put
+txn Sender
+byte "pw"
+int 0
+app_local_put
+txn Sender
+byte "cr"
+int 0
+app_local_put
+txn Sender
+byte "cb"
+int 0
+app_local_put
+txn Sender
+byte "ct"
+int 0
+app_local_put
+txn Sender
+byte "ch"
+byte ""
+app_local_put
+int 1
+return
+main_l47:
 byte "ow"
 txn Sender
 app_global_put
@@ -759,6 +873,9 @@ byte "tp"
 int 0
 app_global_put
 byte "nc"
+int 0
+app_global_put
+byte "pe"
 int 0
 app_global_put
 int 1

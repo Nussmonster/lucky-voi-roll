@@ -66,6 +66,7 @@ TG = Bytes("tg")
 TW = Bytes("tw")
 TP = Bytes("tp")
 NC = Bytes("nc")
+PE = Bytes("pe")
 
 # Local state keys
 PG = Bytes("pg")
@@ -105,6 +106,7 @@ def handle_create():
         global_put(TW, Int(0)),
         global_put(TP, Int(0)),
         global_put(NC, Int(0)),
+        global_put(PE, Int(0)),
         Approve(),
     )
 
@@ -136,10 +138,14 @@ def handle_fund_house():
     )
 
 def handle_commit():
-    pay        = Gtxn[0]
-    bet_type   = Btoi(Txn.application_args[1])
-    commitment = Txn.application_args[2]
-    s_ecr      = ScratchVar(TealType.uint64)
+    pay          = Gtxn[0]
+    bet_type     = Btoi(Txn.application_args[1])
+    commitment   = Txn.application_args[2]
+    s_ecr        = ScratchVar(TealType.uint64)
+    s_max_payout = ScratchVar(TealType.uint64)
+    s_old_type   = ScratchVar(TealType.uint64)
+    s_old_bet    = ScratchVar(TealType.uint64)
+    s_old_exp    = ScratchVar(TealType.uint64)
 
     return Seq(
         Assert(App.optedIn(Int(0), Global.current_application_id()), comment="Must opt in first"),
@@ -165,12 +171,31 @@ def handle_commit():
         ),
         Assert(pay.amount() >= global_get(MN), comment="Bet too small"),
         Assert(pay.amount() <= global_get(MX), comment="Bet too large"),
+        s_max_payout.store(
+            If(bet_type == LUCKY_7)
+            .Then(pay.amount() * Int(4))
+            .Else(pay.amount() * Int(2))
+        ),
         Assert(
-            global_get(HB) >= pay.amount() * Int(4) + MIN_BALANCE_RESERVE,
+            global_get(HB) >= global_get(PE) + s_max_payout.load() + MIN_BALANCE_RESERVE,
             comment="House funds insufficient",
+        ),
+        # Release stale PE from an expired prior commit in this slot
+        If(And(s_ecr.load() != Int(0), Global.round() > s_ecr.load() + REVEAL_WINDOW)).Then(
+            Seq(
+                s_old_type.store(local_get(Txn.sender(), CT)),
+                s_old_bet.store(local_get(Txn.sender(), CB)),
+                s_old_exp.store(
+                    If(s_old_type.load() == LUCKY_7)
+                    .Then(s_old_bet.load() * Int(4))
+                    .Else(s_old_bet.load() * Int(2))
+                ),
+                global_put(PE, global_get(PE) - s_old_exp.load()),
+            )
         ),
         global_put(HB, global_get(HB) + pay.amount()),
         global_put(TW, global_get(TW) + pay.amount()),
+        global_put(PE, global_get(PE) + s_max_payout.load()),
         local_put(Txn.sender(), CH, commitment),
         local_put(Txn.sender(), CR, Global.round()),
         local_put(Txn.sender(), CB, pay.amount()),
@@ -180,18 +205,19 @@ def handle_commit():
     )
 
 def handle_reveal():
-    secret   = Txn.application_args[1]
-    s_cr     = ScratchVar(TealType.uint64)
-    s_bet    = ScratchVar(TealType.uint64)
-    s_type   = ScratchVar(TealType.uint64)
-    s_nc     = ScratchVar(TealType.uint64)
-    s_seed1  = ScratchVar(TealType.bytes)
-    s_seed2  = ScratchVar(TealType.bytes)
-    s_die1   = ScratchVar(TealType.uint64)
-    s_die2   = ScratchVar(TealType.uint64)
-    s_total  = ScratchVar(TealType.uint64)
-    s_won    = ScratchVar(TealType.uint64)
-    s_payout = ScratchVar(TealType.uint64)
+    secret     = Txn.application_args[1]
+    s_cr       = ScratchVar(TealType.uint64)
+    s_bet      = ScratchVar(TealType.uint64)
+    s_type     = ScratchVar(TealType.uint64)
+    s_nc       = ScratchVar(TealType.uint64)
+    s_seed1    = ScratchVar(TealType.bytes)
+    s_seed2    = ScratchVar(TealType.bytes)
+    s_die1     = ScratchVar(TealType.uint64)
+    s_die2     = ScratchVar(TealType.uint64)
+    s_total    = ScratchVar(TealType.uint64)
+    s_won      = ScratchVar(TealType.uint64)
+    s_payout   = ScratchVar(TealType.uint64)
+    s_released = ScratchVar(TealType.uint64)
 
     return Seq(
         Assert(App.optedIn(Int(0), Global.current_application_id()), comment="Not opted in"),
@@ -237,6 +263,12 @@ def handle_reveal():
         If(s_won.load() == Int(1)).Then(
             local_put(Txn.sender(), PW, local_get(Txn.sender(), PW) + s_payout.load()),
         ),
+        s_released.store(
+            If(s_type.load() == LUCKY_7)
+            .Then(s_bet.load() * Int(4))
+            .Else(s_bet.load() * Int(2))
+        ),
+        global_put(PE, global_get(PE) - s_released.load()),
         local_put(Txn.sender(), CR, Int(0)),
         local_put(Txn.sender(), CB, Int(0)),
         local_put(Txn.sender(), CT, Int(0)),
@@ -366,8 +398,9 @@ def handle_accept_ownership():
 def approval_program():
     method = Txn.application_args[0]
     return Cond(
-        [Txn.application_id() == Int(0),       handle_create()],
-        [method == Bytes("fundHouse"),          handle_fund_house()],
+        [Txn.application_id() == Int(0),              handle_create()],
+        [Txn.on_completion() == OnComplete.OptIn,     handle_optin()],
+        [method == Bytes("fundHouse"),                handle_fund_house()],
         [method == Bytes("commit"),             handle_commit()],
         [method == Bytes("reveal"),             handle_reveal()],
         [method == Bytes("withdraw"),           handle_withdraw()],
@@ -380,6 +413,10 @@ def approval_program():
     )
 
 def clear_program():
+    # ClearState auto-approved. If a player clears while a commit is pending,
+    # their bet stays in HB (house forfeit) but their PE exposure stays in the
+    # counter — conservatively over-reserving until the REVEAL_WINDOW expires
+    # and the next player commit flushes the stale slot.
     return Approve()
 
 if __name__ == "__main__":
@@ -408,7 +445,7 @@ if __name__ == "__main__":
         "desc": "Two-dice commit-reveal betting game on Voi Network",
         "networks": {},
         "state": {
-            "global": {"num_byte_slices": 2, "num_uints": 8},
+            "global": {"num_byte_slices": 2, "num_uints": 9},
             "local":  {"num_byte_slices": 1, "num_uints": 5},
         },
         "contract": {

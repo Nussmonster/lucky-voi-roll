@@ -5,7 +5,7 @@
   "state": {
     "global": {
       "num_byte_slices": 2,
-      "num_uints": 8
+      "num_uints": 9
     },
     "local": {
       "num_byte_slices": 1,
