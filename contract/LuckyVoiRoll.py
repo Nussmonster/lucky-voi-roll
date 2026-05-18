@@ -32,7 +32,7 @@ Local state keys:
   ct  = commit bet type        ch  = commit hash (sha256 of secret)
 
 Compile:
-  pip install pyteal==0.25.0 algosdk
+  pip install pyteal==0.25.0
   python contract/LuckyVoiRoll.py
 
 Outputs:

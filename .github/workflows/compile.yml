@@ -24,7 +24,7 @@ jobs:
           python-version: '3.11'
 
       - name: Install PyTeal
-        run: pip install pyteal==0.25.0 algosdk
+        run: pip install pyteal==0.25.0
 
       - name: Compile contract
         run: python contract/LuckyVoiRoll.py
