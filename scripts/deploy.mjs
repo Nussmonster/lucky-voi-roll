@@ -121,7 +121,8 @@ async function main() {
   const { txid } = await algod.sendRawTransaction(createTxn.signTxn(account.sk)).do();
   console.log('\nCreation tx:', txid);
   const createResult = await algosdk.waitForConfirmation(algod, txid, 5);
-  const appId        = Number(createResult['application-index']);
+  // algosdk v3 uses camelCase; v2 used kebab-case — support both for safety
+  const appId        = Number(createResult.applicationIndex ?? createResult['application-index']);
   const appAddress   = algosdk.getApplicationAddress(appId);
   console.log('✅ App created — ID:', appId, '| Address:', appAddress);
 
