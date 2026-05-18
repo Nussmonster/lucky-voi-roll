@@ -121,7 +121,8 @@ async function main() {
   const { txid } = await algod.sendRawTransaction(createTxn.signTxn(account.sk)).do();
   console.log('\nCreation tx:', txid);
   const createResult = await algosdk.waitForConfirmation(algod, txid, 5);
-  const appId        = Number(createResult['application-index']);
+  // algosdk v3 uses camelCase; v2 used kebab-case — support both for safety
+  const appId        = Number(createResult.applicationIndex ?? createResult['application-index']);
   const appAddress   = algosdk.getApplicationAddress(appId);
   console.log('✅ App created — ID:', appId, '| Address:', appAddress);
 
@@ -180,11 +181,27 @@ async function main() {
   fs.mkdirSync(artifactsDir, { recursive: true });
   fs.writeFileSync(deploymentPath, JSON.stringify(info2, null, 2));
 
+  // ── Patch APP_ID in index.html automatically ──────────────────────
+  const htmlPath = path.join(__dirname, '..', 'index.html');
+  if (fs.existsSync(htmlPath)) {
+    const html = fs.readFileSync(htmlPath, 'utf8');
+    const patched = html.replace(
+      /^let APP_ID\s*=\s*\d+;.*$/m,
+      `let APP_ID = ${appId}; // deployed ${netArg} ${new Date().toISOString()}`,
+    );
+    if (patched !== html) {
+      fs.writeFileSync(htmlPath, patched);
+      console.log('✅ index.html patched with APP_ID =', appId);
+    } else {
+      console.warn('⚠️  Could not auto-patch index.html — set APP_ID =', appId, 'manually');
+    }
+  }
+
   console.log('\n─'.repeat(48));
   console.log('🎲 Live on', net.name);
   console.log('   App ID:    ', appId);
   console.log('   App Addr:  ', appAddress);
-  console.log('\n📋 Next: set APP_ID =', appId, 'in frontend/index.html\n');
+  console.log();
 }
 
 main().catch(e => { console.error(e); process.exit(1); });
