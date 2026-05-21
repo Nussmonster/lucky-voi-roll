@@ -43,6 +43,7 @@ Outputs:
 
 import os, json
 from pyteal import *
+from pyteal.ast.block import BlockField
 
 # Constants
 UNDER_7             = Int(0)
@@ -137,8 +138,8 @@ def handle_fund_house():
 
 def handle_commit():
     pay        = Gtxn[0]
-    bet_type   = Btoi(Txn.application_args()[1])
-    commitment = Txn.application_args()[2]
+    bet_type   = Btoi(Txn.application_args[1])
+    commitment = Txn.application_args[2]
     s_ecr      = ScratchVar(TealType.uint64)
 
     return Seq(
@@ -180,7 +181,7 @@ def handle_commit():
     )
 
 def handle_reveal():
-    secret   = Txn.application_args()[1]
+    secret   = Txn.application_args[1]
     s_cr     = ScratchVar(TealType.uint64)
     s_bet    = ScratchVar(TealType.uint64)
     s_type   = ScratchVar(TealType.uint64)
@@ -205,7 +206,7 @@ def handle_reveal():
         s_nc.store(global_get(NC) + Int(1)),
         global_put(NC, s_nc.load()),
         s_seed1.store(Sha256(Concat(
-            Block(s_cr.load()).seed(),
+            Block(BlockField.block_seed, s_cr.load()),
             secret,
             Itob(s_nc.load()),
         ))),
@@ -270,7 +271,7 @@ def handle_reveal():
     )
 
 def handle_withdraw():
-    amount  = Btoi(Txn.application_args()[1])
+    amount  = Btoi(Txn.application_args[1])
     reserve = global_get(MX) * Int(4)
     return Seq(
         Assert(Txn.sender() == global_get(OW), comment="Not owner"),
@@ -324,8 +325,8 @@ def handle_unpause():
     )
 
 def handle_set_bet_limits():
-    new_min = Btoi(Txn.application_args()[1])
-    new_max = Btoi(Txn.application_args()[2])
+    new_min = Btoi(Txn.application_args[1])
+    new_max = Btoi(Txn.application_args[2])
     return Seq(
         Assert(Txn.sender() == global_get(OW), comment="Not owner"),
         Assert(new_min > Int(0),               comment="Min must be > 0"),
@@ -342,7 +343,7 @@ def handle_set_bet_limits():
     )
 
 def handle_transfer_ownership():
-    new_owner = Txn.application_args()[1]
+    new_owner = Txn.application_args[1]
     return Seq(
         Assert(Txn.sender() == global_get(OW),    comment="Not owner"),
         Assert(Len(new_owner) == Int(32),          comment="Invalid address length"),
@@ -364,7 +365,7 @@ def handle_accept_ownership():
     )
 
 def approval_program():
-    method = Txn.application_args()[0]
+    method = Txn.application_args[0]
     return Cond(
         [Txn.application_id() == Int(0),       handle_create()],
         [method == Bytes("fundHouse"),          handle_fund_house()],
