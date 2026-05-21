@@ -1,0 +1,123 @@
+{
+  "name": "LuckyVoiRoll",
+  "desc": "Two-dice commit-reveal betting game on Voi Network",
+  "networks": {},
+  "state": {
+    "global": {
+      "num_byte_slices": 2,
+      "num_uints": 8
+    },
+    "local": {
+      "num_byte_slices": 1,
+      "num_uints": 5
+    }
+  },
+  "contract": {
+    "name": "LuckyVoiRoll",
+    "methods": [
+      {
+        "name": "fundHouse",
+        "args": [],
+        "returns": {
+          "type": "void"
+        }
+      },
+      {
+        "name": "commit",
+        "args": [
+          {
+            "name": "betType",
+            "type": "uint64"
+          },
+          {
+            "name": "commitment",
+            "type": "byte[]"
+          }
+        ],
+        "returns": {
+          "type": "void"
+        }
+      },
+      {
+        "name": "reveal",
+        "args": [
+          {
+            "name": "secret",
+            "type": "byte[]"
+          }
+        ],
+        "returns": {
+          "type": "void"
+        }
+      },
+      {
+        "name": "withdraw",
+        "args": [
+          {
+            "name": "amount",
+            "type": "uint64"
+          }
+        ],
+        "returns": {
+          "type": "void"
+        }
+      },
+      {
+        "name": "emergencyWithdraw",
+        "args": [],
+        "returns": {
+          "type": "void"
+        }
+      },
+      {
+        "name": "pause",
+        "args": [],
+        "returns": {
+          "type": "void"
+        }
+      },
+      {
+        "name": "unpause",
+        "args": [],
+        "returns": {
+          "type": "void"
+        }
+      },
+      {
+        "name": "setBetLimits",
+        "args": [
+          {
+            "name": "newMin",
+            "type": "uint64"
+          },
+          {
+            "name": "newMax",
+            "type": "uint64"
+          }
+        ],
+        "returns": {
+          "type": "void"
+        }
+      },
+      {
+        "name": "transferOwnership",
+        "args": [
+          {
+            "name": "newOwner",
+            "type": "address"
+          }
+        ],
+        "returns": {
+          "type": "void"
+        }
+      },
+      {
+        "name": "acceptOwnership",
+        "args": [],
+        "returns": {
+          "type": "void"
+        }
+      }
+    ]
+  }
+}
